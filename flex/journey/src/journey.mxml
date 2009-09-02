@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/halo" 
+			   minWidth="1024" minHeight="768" 
+			   xmlns:view="journey.view.*"
+			   xmlns:viewuser="journey.view.user.*"
+			    implements="journey.ui.IStage"
+			   creationComplete="application1_creationCompleteHandler(event)" 
+			   xmlns:viewcommon="journey.view.common.*">
+	<fx:Script source="journeyAction.as">		
+	</fx:Script>
+
+	<s:states>
+		<s:State id="state_default" name="state_default" >
+		</s:State>
+		<s:State id="loginState" name="loginState">
+		</s:State>
+		<s:State id="registerState" name="registerState">
+		</s:State>
+		<s:State id="lostpasswordState" name="lostpasswordState">
+		</s:State>
+		<mx:State id="logoutState" name="logoutState">
+		</mx:State>
+		<mx:State id="errorState" name="errorState">
+		</mx:State>
+	</s:states>
+	
+	<viewuser:LoginForm includeIn="loginState">		
+	</viewuser:LoginForm>
+	
+	<viewuser:RegisterForm includeIn="registerState">		
+	</viewuser:RegisterForm>	
+	
+	<viewuser:LostPasswordForm includeIn="lostpasswordState">		
+	</viewuser:LostPasswordForm>	
+	
+	<viewuser:LogoutForm includeIn="logoutState">		
+	</viewuser:LogoutForm>
+		
+	<viewcommon:ErrorView includeIn="errorState">		
+	</viewcommon:ErrorView>
+	
+	<view:Journey includeIn="state_default">
+		
+	</view:Journey>
+</s:Application>

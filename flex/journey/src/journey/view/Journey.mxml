@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="100%" xmlns:view="journey.view.*" xmlns:user="journey.view.user.*">
+	<s:layout>
+ 		<s:BasicLayout/>
+ 	</s:layout>
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout>
+				
+			</s:HorizontalLayout>
+		</s:layout>
+		<mx:Image source="@Embed(source='../assete/logo.gif')" width="160" height="120">
+			
+		</mx:Image>
+		<user:StatusTray>
+			
+		</user:StatusTray>
+	</s:Group>
+	<mx:TabNavigator width="100%" height="100%" top="120">
+		<mx:Canvas label="@Resource(key='Journey.TabNavigator.DashBoard',bundle='view')" width="100%" height="100%">
+			
+		</mx:Canvas>
+		<mx:Canvas label="@Resource(key='Journey.TabNavigator.AttendBoard',bundle='view')" width="100%" height="100%">
+		</mx:Canvas>
+		<mx:Canvas label="@Resource(key='Journey.TabNavigator.ChatBoard',bundle='view')" width="100%" height="100%">
+			
+		</mx:Canvas>
+		<mx:Canvas label="@Resource(key='Journey.TabNavigator.ShareBoard',bundle='view')" width="100%" height="100%">
+		</mx:Canvas>
+	</mx:TabNavigator>
+</s:Group>

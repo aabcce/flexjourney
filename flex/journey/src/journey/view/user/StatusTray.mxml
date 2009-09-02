@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" 
+		 width="100%" height="120" creationComplete="group1_creationCompleteHandler(event)"
+		  addedToStage="group1_addedToStageHandler(event)" xmlns:jyuseragent="services.jyuseragent.*">
+	<s:layout>
+ 		<s:HorizontalLayout/>
+ 	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.PropertyChangeEvent;
+			import mx.binding.utils.ChangeWatcher;
+			import mx.binding.utils.BindingUtils;
+			import mx.events.FlexEvent;
+			import services.jyuseragent.JyUser;
+			import journey.controller.Commands;
+			import journey.controller.CustomEvent;
+			import journey.model.ModelLocator;
+			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+			[Bindable]
+			private var model:ModelLocator = ModelLocator.getInstance();
+
+			protected function linkbutton1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				CairngormEventDispatcher.getInstance().dispatchEvent(
+					new CustomEvent(journey.controller.Commands.USER_LOGOUT));
+			}
+
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+			}
+			
+			protected function group1_addedToStageHandler(event:Event):void
+			{
+			}
+
+		]]>
+	</fx:Script>
+	<mx:Label text="{model.currUser.email}">
+		
+	</mx:Label>
+	<mx:LinkButton label="退出" click="linkbutton1_clickHandler(event)">
+		
+	</mx:LinkButton>
+</s:Group>
