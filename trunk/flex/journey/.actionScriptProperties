@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<actionScriptProperties mainApplicationPath="journey.mxml" projectUUID="132b497a-6a9a-4851-9de1-318ad666f71e" version="6">
+  <compiler additionalCompilerArguments="-services &quot;D:\Java\lcds\tomcat\webapps\journey\WEB-INF\flex\services-config.xml&quot; -locale zh_CN -allow-source-path-overlap=true -source-path=locale/{locale}" autoRSLOrdering="true" copyDependentFiles="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="true" outputFolderLocation="D:/Java/lcds/tomcat/webapps/journey/flex/" outputFolderPath="bin-debug" rootURL="http://localhost:8400/journeyflex" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+    <compilerSourcePath/>
+    <libraryPath defaultLinkType="0">
+      <libraryPathEntry kind="4" path="">
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
+        </excludedEntries>
+      </libraryPathEntry>
+      <libraryPathEntry kind="1" linkType="1" path="libs"/>
+      <libraryPathEntry kind="1" linkType="1" path="${DCD_LIB_LOCATION}"/>
+      <libraryPathEntry kind="1" linkType="1" path="${DCD_LOCALE_LOCATION}"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/java/lcds/tomcat/webapps/journey/WEB-INF/flex/libs/fds.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/java/lcds/tomcat/webapps/journey/WEB-INF/flex/libs/player/playerfds.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/java/lcds/tomcat/webapps/journey/WEB-INF/flex/locale/{locale}" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/journeylib/bin/journeylib.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/Java/lcds/tomcat/webapps/journey/WEB-INF/flex/locale/{locale}" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/Java/lcds/tomcat/webapps/journey/WEB-INF/flex/libs/fds.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/Java/lcds/tomcat/webapps/journey/WEB-INF/flex/libs/player/playerfds.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/Java/lcds/tomcat/webapps/journey/WEB-INF/flex/locale/{locale}" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/Java/lcds/tomcat/webapps/journey/WEB-INF/flex/locale/{locale}" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="1" linkType="1" path="D:/Java/lcds/tomcat/webapps/journey/WEB-INF/flex/locale/{locale}"/>
+    </libraryPath>
+    <sourceAttachmentPath/>
+  </compiler>
+  <applications>
+    <application path="journey.mxml"/>
+  </applications>
+  <modules/>
+  <buildCSSFiles/>
+</actionScriptProperties>

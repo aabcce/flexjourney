@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+<mx:Script source="LogoutFormAction.as">
+	
+</mx:Script>
+	<mx:Label text="成功退出.">
+		
+	</mx:Label>
+	<mx:Button label="返回登录" click="switchToLogin()"  x="26" y="38"/>
+</mx:Canvas>

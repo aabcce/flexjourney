@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+<mx:Script source="RegisterFormAction.as">
+	
+</mx:Script>
+	<mx:Form name="Login">
+		<mx:FormHeading label="欢迎入住G3SITE">
+		</mx:FormHeading>
+		<mx:FormItem name="email" >
+			<mx:HBox>
+				<mx:Label text="Email：">
+					
+				</mx:Label>
+				<mx:TextInput id="email">
+					
+				</mx:TextInput>
+				
+			</mx:HBox>
+		</mx:FormItem>
+		<mx:FormItem name="pwd" >
+			<mx:HBox>
+				<mx:Label text="密   码：">
+					
+				</mx:Label>
+				<mx:TextInput id="pwd" displayAsPassword="true" >
+					
+				</mx:TextInput>				
+				
+			</mx:HBox>
+		</mx:FormItem>
+		<mx:FormItem name="repeatpwd">
+			<mx:HBox>
+				<mx:Label text="确认密码：">
+					
+				</mx:Label>
+				<mx:TextInput id="repeatpwd" displayAsPassword="true">
+					
+				</mx:TextInput>				
+			</mx:HBox>
+		</mx:FormItem>
+		<!--
+		<mx:FormItem label="详细信息">
+			<mx:HBox>
+				<mx:HRule width="90%"/>	
+				<mx:Button label="\u00C1" click="toggleDetail(event)">
+					
+				</mx:Button>			
+			</mx:HBox>
+			<mx:Canvas id="detailedInfoTray" visible="false">
+				<mx:HBox>
+					<mx:Label text="公司名称/个人姓名：">
+						
+					</mx:Label>
+					<mx:TextInput id="company" >
+						
+					</mx:TextInput>
+				</mx:HBox>
+				<mx:HBox>
+					<mx:Label text="联系人：">
+						
+					</mx:Label>
+					<mx:TextInput id="contact" >
+						
+					</mx:TextInput>
+				</mx:HBox>
+				<mx:HBox>
+					<mx:Label text="联系电话：">
+						
+					</mx:Label>
+					<mx:TextInput id="telephone" >
+						
+					</mx:TextInput>
+				</mx:HBox>
+				<mx:HBox>
+					<mx:Label text="手机：">
+						
+					</mx:Label>
+					<mx:TextInput id="mobile" >
+						
+					</mx:TextInput>
+				</mx:HBox>
+			</mx:Canvas>
+		</mx:FormItem>
+		-->
+		<mx:HBox>
+			<mx:Button id="submitBtn" label="注册" click="onRegister()" >				
+			</mx:Button>			
+		</mx:HBox>
+	</mx:Form>
+
+	<mx:StringValidator id="pwdValid" enabled="true" source="{pwd}" property="text" 
+		required="true" requiredFieldError="请输入密码!" minLength="4" maxLength="16" 
+		>
+		
+	</mx:StringValidator>
+	<mx:StringValidator id="repeatpwdValid" enabled="true" source="{repeatpwd}" property="text" 
+		required="true" requiredFieldError="请输入确认密码!" minLength="4" maxLength="16">
+		
+	</mx:StringValidator>
+	<mx:EmailValidator id="emailValid" enabled="true" source="{email}" property="text" 
+		required="true" requiredFieldError="请输入Email!">
+		
+	</mx:EmailValidator>
+	
+</mx:Canvas>
