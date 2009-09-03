@@ -1,22 +1,22 @@
 package journey.model
 {
+    import com.adobe.cairngorm.model.ModelLocator;
 	import journey.ui.*;
 	
-	import services.jypartyagent.JyParty;
-	import services.jyuseragent.JyUser;
+	import valueObjects.*;
 	
 	[Bindable]
-	public class ModelLocator
+	public class ModelLocator implements com.adobe.cairngorm.model.ModelLocator
 	{
-		private static var _model:ModelLocator = new ModelLocator();
+		private static var _model:journey.model.ModelLocator = new journey.model.ModelLocator();
 		
 		public var Info:Object;
 		
-		public var currUser:services.jyuseragent.JyUser;
+		public var currUser:JyUser;
 		
 		public var currParty:JyParty;
 		
-		public static function getInstance():ModelLocator
+		public static function getInstance():journey.model.ModelLocator
 		{
 			return(_model);
 		}

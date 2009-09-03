@@ -4,9 +4,6 @@
 		  creationComplete="group1_creationCompleteHandler(event)">
 	<fx:Script>
 		<![CDATA[
-			
-
-
 			protected function label1_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
