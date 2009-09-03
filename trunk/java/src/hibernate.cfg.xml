@@ -18,7 +18,7 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="hbm2ddl.auto">update</property>
-		<property name="connection.password">aabcce</property>
+		<property name="connection.password">Pass@1234</property>
 		<property name="connection.driver_class">
 			com.mysql.jdbc.Driver
 		</property>
