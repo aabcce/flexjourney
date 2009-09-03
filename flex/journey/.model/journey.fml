@@ -1,29 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <model xmlns="http://ns.adobe.com/Fiber/0.3">
+  <service name="JyAttendAgent">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">journey.agents.JyAttendAgent</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services.jyattendagent</item>
+      <item name="Destination">JyAttendAgent</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="contextRoot">/journey</item>
+      <item name="rootUrl">http://localhost:8400/journey</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8400/journey/messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">LCDS</item>
+    </annotation>
+    <function name="getAttendList" arguments="arg0:string[],arg1:string,arg2:integer" return-type="opaque[]">
+      <annotation name="original signature">
+        <item name="inputParams">string,string,integer</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+    <function name="getAttend" arguments="arg0:integer" return-type="JyAttend">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">JyAttend</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="JyAttend">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">JyAttend</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">journey.model.JyAttend</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">JyAttendAgent</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="auditresult" type="integer" required="true"/>
+    <property name="useremail" type="string" required="true"/>
+    <property name="auditid" type="integer" required="true"/>
+    <property name="userid" type="integer" required="true"/>
+    <property name="auditdate" type="date" required="true"/>
+    <property name="title" type="string" required="true"/>
+    <property name="adddate" type="date" required="true"/>
+    <property name="content" type="string" required="true"/>
+    <property name="attendid" type="integer" required="true"/>
+    <property name="partyid" type="integer" required="true"/>
+  </entity>
+  <service name="JyPartyAgent">
+    <annotation name="ActionScriptGeneration">
+      <item name="Source">journey.agents.JyPartyAgent</item>
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services.jypartyagent</item>
+      <item name="Destination">JyPartyAgent</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="contextRoot">/journey</item>
+      <item name="rootUrl">http://localhost:8400/journey</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8400/journey/messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">LCDS</item>
+    </annotation>
+    <function name="getParty" arguments="arg0:integer" return-type="JyParty">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">JyParty</item>
+      </annotation>
+    </function>
+    <function name="getPartyList" arguments="arg0:string[],arg1:string,arg2:integer" return-type="opaque[]">
+      <annotation name="original signature">
+        <item name="inputParams">string,string,integer</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="JyParty">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">JyParty</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">journey.model.JyParty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">JyPartyAgent</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="minnum" type="integer" required="true"/>
+    <property name="owneremail" type="string" required="true"/>
+    <property name="title" type="string" required="true"/>
+    <property name="adddate" type="date" required="true"/>
+    <property name="maxnum" type="integer" required="true"/>
+    <property name="content" type="string" required="true"/>
+    <property name="ownerid" type="integer" required="true"/>
+    <property name="partyid" type="integer" required="true"/>
+  </entity>
   <service name="JyUserAgent">
     <annotation name="ActionScriptGeneration">
+      <item name="Source">journey.agents.JyUserAgent</item>
       <item name="ServiceType">RemoteObject</item>
       <item name="Package">services.jyuseragent</item>
       <item name="Destination">JyUserAgent</item>
     </annotation>
     <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
       <item name="contextRoot">/journey</item>
       <item name="rootUrl">http://localhost:8400/journey</item>
-      <item name="source">journey.agents.JyUserAgent</item>
       <item name="LINKED_FILE"></item>
-      <item name="endpoint">http://localhost:8400/journey/messagebroker/amf</item>
-      <item name="destination">JyUserAgent</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8400/journey/messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">LCDS</item>
     </annotation>
-    <function name="getCurrUser" return-type="JyUser">
+    <function name="getCurrUser" return-type="void">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
         <item name="returnType">JyUser</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">password,userid,email</item>
       </annotation>
     </function>
     <function name="lostPassword" arguments="arg0:string" return-type="boolean">
@@ -78,122 +193,13 @@
       <item name="service">JyUserAgent</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
-      <item name="Package">services.jyuseragent</item>
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getCurrUser">
+      <item name="propertySpecifier">password,userid,email</item>
     </annotation>
     <property name="password" type="string" required="true"/>
     <property name="userid" type="integer" required="true"/>
     <property name="email" type="string" required="true"/>
-  </entity>
-  <service name="JyAttendAgent">
-    <annotation name="ActionScriptGeneration">
-      <item name="ServiceType">RemoteObject</item>
-      <item name="Package">services.jyattendagent</item>
-      <item name="Destination">JyAttendAgent</item>
-    </annotation>
-    <annotation name="ServiceConfig">
-      <item name="contextRoot">/journey</item>
-      <item name="rootUrl">http://localhost:8400/journey/</item>
-      <item name="source">journey.agents.JyAttendAgent</item>
-      <item name="LINKED_FILE"></item>
-      <item name="endpoint">http://localhost:8400/journey/messagebroker/amf</item>
-      <item name="destination">JyAttendAgent</item>
-    </annotation>
-    <annotation name="ServiceTypeGroup">
-      <item name="ServiceBackendType">LCDS</item>
-    </annotation>
-    <function name="getAttendList" arguments="arg0:string[],arg1:string,arg2:integer" return-type="opaque[]">
-      <annotation name="original signature">
-        <item name="inputParams">string,string,integer</item>
-        <item name="returnType">opaque</item>
-      </annotation>
-    </function>
-    <function name="getAttend" arguments="arg0:integer" return-type="JyAttend">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">integer</item>
-        <item name="returnType">JyAttend</item>
-      </annotation>
-    </function>
-  </service>
-  <entity name="JyAttend">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">JyAttend</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">journey.model.JyAttend</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">JyAttendAgent</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">services.jyattendagent</item>
-    </annotation>
-    <property name="auditresult" type="integer" required="true"/>
-    <property name="useremail" type="string" required="true"/>
-    <property name="auditid" type="integer" required="true"/>
-    <property name="userid" type="integer" required="true"/>
-    <property name="auditdate" type="date" required="true"/>
-    <property name="title" type="string" required="true"/>
-    <property name="adddate" type="date" required="true"/>
-    <property name="content" type="string" required="true"/>
-    <property name="attendid" type="integer" required="true"/>
-    <property name="partyid" type="integer" required="true"/>
-  </entity>
-  <service name="JyPartyAgent">
-    <annotation name="ActionScriptGeneration">
-      <item name="ServiceType">RemoteObject</item>
-      <item name="Package">services.jypartyagent</item>
-      <item name="Destination">JyPartyAgent</item>
-    </annotation>
-    <annotation name="ServiceConfig">
-      <item name="contextRoot">/journey</item>
-      <item name="rootUrl">http://localhost:8400/journey/</item>
-      <item name="source">journey.agents.JyPartyAgent</item>
-      <item name="LINKED_FILE"></item>
-      <item name="endpoint">http://localhost:8400/journey/messagebroker/amf</item>
-      <item name="destination">JyPartyAgent</item>
-    </annotation>
-    <annotation name="ServiceTypeGroup">
-      <item name="ServiceBackendType">LCDS</item>
-    </annotation>
-    <function name="getParty" arguments="arg0:integer" return-type="JyParty">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">integer</item>
-        <item name="returnType">JyParty</item>
-      </annotation>
-    </function>
-    <function name="getPartyList" arguments="arg0:string[],arg1:string,arg2:integer" return-type="opaque[]">
-      <annotation name="original signature">
-        <item name="inputParams">string,string,integer</item>
-        <item name="returnType">opaque</item>
-      </annotation>
-    </function>
-  </service>
-  <entity name="JyParty">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">JyParty</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">journey.model.JyParty</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">JyPartyAgent</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">services.jypartyagent</item>
-    </annotation>
-    <property name="minnum" type="integer" required="true"/>
-    <property name="owneremail" type="string" required="true"/>
-    <property name="title" type="string" required="true"/>
-    <property name="adddate" type="date" required="true"/>
-    <property name="maxnum" type="integer" required="true"/>
-    <property name="content" type="string" required="true"/>
-    <property name="ownerid" type="integer" required="true"/>
-    <property name="partyid" type="integer" required="true"/>
   </entity>
 </model>

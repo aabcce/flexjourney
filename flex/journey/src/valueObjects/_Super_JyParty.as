@@ -3,7 +3,7 @@
  * of this value object you may modify the generated sub-class of this class - JyParty.as.
  */
 
-package services.jypartyagent
+package valueObjects
 {
 import flash.events.EventDispatcher;
 import fr.core.model_internal;
@@ -25,7 +25,7 @@ use namespace model_internal;
 [ExcludeClass]
 public class _Super_JyParty extends EventDispatcher implements IValueObject
 {
-	model_internal var _internal_model : _JyPartyEntityMetadata;
+	model_internal var _dminternal_model : _JyPartyEntityMetadata;
 
 	/**
 	 * properties
@@ -105,20 +105,29 @@ public class _Super_JyParty extends EventDispatcher implements IValueObject
      */      
     public function set minnum(value:int) : void 
     {    	
+        var recalcValid:Boolean = false;
+    	
+    	
     	var oldValue:int = _internal_minnum;               
         if (oldValue !== value)
         {
         	_internal_minnum = value;
         	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "minnum", oldValue, _internal_minnum));
         }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
     }    
     public function set owneremail(value:String) : void 
     {    	
-    	var recalcValid:Boolean = false;
+        var recalcValid:Boolean = false;
     	if (value == null || _internal_owneremail == null)
     	{
     		recalcValid = true;
     	}	
+    	
     	
     	var oldValue:String = _internal_owneremail;               
         if (oldValue !== value)
@@ -134,11 +143,12 @@ public class _Super_JyParty extends EventDispatcher implements IValueObject
     }    
     public function set title(value:String) : void 
     {    	
-    	var recalcValid:Boolean = false;
+        var recalcValid:Boolean = false;
     	if (value == null || _internal_title == null)
     	{
     		recalcValid = true;
     	}	
+    	
     	
     	var oldValue:String = _internal_title;               
         if (oldValue !== value)
@@ -154,11 +164,12 @@ public class _Super_JyParty extends EventDispatcher implements IValueObject
     }    
     public function set adddate(value:Date) : void 
     {    	
-    	var recalcValid:Boolean = false;
+        var recalcValid:Boolean = false;
     	if (value == null || _internal_adddate == null)
     	{
     		recalcValid = true;
     	}	
+    	
     	
     	var oldValue:Date = _internal_adddate;               
         if (oldValue !== value)
@@ -174,20 +185,29 @@ public class _Super_JyParty extends EventDispatcher implements IValueObject
     }    
     public function set maxnum(value:int) : void 
     {    	
+        var recalcValid:Boolean = false;
+    	
+    	
     	var oldValue:int = _internal_maxnum;               
         if (oldValue !== value)
         {
         	_internal_maxnum = value;
         	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxnum", oldValue, _internal_maxnum));
         }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
     }    
     public function set content(value:String) : void 
     {    	
-    	var recalcValid:Boolean = false;
+        var recalcValid:Boolean = false;
     	if (value == null || _internal_content == null)
     	{
     		recalcValid = true;
     	}	
+    	
     	
     	var oldValue:String = _internal_content;               
         if (oldValue !== value)
@@ -203,21 +223,37 @@ public class _Super_JyParty extends EventDispatcher implements IValueObject
     }    
     public function set ownerid(value:int) : void 
     {    	
+        var recalcValid:Boolean = false;
+    	
+    	
     	var oldValue:int = _internal_ownerid;               
         if (oldValue !== value)
         {
         	_internal_ownerid = value;
         	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "ownerid", oldValue, _internal_ownerid));
         }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
     }    
     public function set partyid(value:int) : void 
     {    	
+        var recalcValid:Boolean = false;
+    	
+    	
     	var oldValue:int = _internal_partyid;               
         if (oldValue !== value)
         {
         	_internal_partyid = value;
         	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "partyid", oldValue, _internal_partyid));
         }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
     }    
 
     /**
@@ -254,21 +290,33 @@ public class _Super_JyParty extends EventDispatcher implements IValueObject
 		if (_model.isOwneremailAvailable && _internal_owneremail == null)
 		{
 			violatedConsts.push("owneremailIsRequired");
+			validationFailureMessages.push("owneremail is required");
 		}
 		if (_model.isTitleAvailable && _internal_title == null)
 		{
 			violatedConsts.push("titleIsRequired");
+			validationFailureMessages.push("title is required");
 		}
 		if (_model.isAdddateAvailable && _internal_adddate == null)
 		{
 			violatedConsts.push("adddateIsRequired");
+			validationFailureMessages.push("adddate is required");
 		}
 		if (_model.isContentAvailable && _internal_content == null)
 		{
 			violatedConsts.push("contentIsRequired");
+			validationFailureMessages.push("content is required");
 		}
 
 		var styleValidity:Boolean = true;
+	
+	
+	
+	
+	
+	
+	
+	
     
         model_internal::_cacheInitialized_isValid = true;
         model_internal::invalidConstraints_der = violatedConsts;
@@ -298,16 +346,16 @@ public class _Super_JyParty extends EventDispatcher implements IValueObject
 	[Bindable(event="propertyChange")] 
     public function get _model() : _JyPartyEntityMetadata
     {
-		return model_internal::_internal_model;              
+		return model_internal::_dminternal_model;              
     }	
     
     public function set _model(value : _JyPartyEntityMetadata) : void       
     {
-    	var oldValue : _JyPartyEntityMetadata = model_internal::_internal_model;               
+    	var oldValue : _JyPartyEntityMetadata = model_internal::_dminternal_model;               
         if (oldValue !== value)
         {
-        	model_internal::_internal_model = value;
-        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "_model", oldValue, model_internal::_internal_model));
+        	model_internal::_dminternal_model = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "_model", oldValue, model_internal::_dminternal_model));
         }     
     }      
 

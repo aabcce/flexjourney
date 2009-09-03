@@ -2,7 +2,7 @@
 /**
  * This is a generated class and is not intended for modfication.  
  */
-package services.jypartyagent
+package valueObjects
 {
 import fr.core.model_internal;
 import fr.styles.IStyle;
@@ -22,6 +22,8 @@ internal class _JyPartyEntityMetadata extends AbstractEntityMetadata
 	private static var emptyArray:Array = new Array();
 
     model_internal static var allProperties:Array = new Array("minnum", "owneremail", "title", "adddate", "maxnum", "content", "ownerid", "partyid");
+    model_internal static var allAssociationProperties:Array = new Array();
+    model_internal static var allRequiredProperties:Array = new Array("minnum", "owneremail", "title", "adddate", "maxnum", "content", "ownerid", "partyid");
     model_internal static var allAlwaysAvailableProperties:Array = new Array("minnum", "owneremail", "title", "adddate", "maxnum", "content", "ownerid", "partyid");
     model_internal static var guardedProperties:Array = new Array();
     model_internal static var dataProperties:Array = new Array("minnum", "owneremail", "title", "adddate", "maxnum", "content", "ownerid", "partyid");
@@ -68,7 +70,17 @@ internal class _JyPartyEntityMetadata extends AbstractEntityMetadata
     {
         return model_internal::allProperties;
     }
-
+    
+    override public function getAssociationProperties():Array
+    {
+        return model_internal::allAssociationProperties;
+    }    
+    
+    override public function getRequiredProperties():Array
+    {
+         return model_internal::allRequiredProperties;   
+    }
+    
     override public function getDataProperties():Array
     {
         return model_internal::dataProperties;
@@ -134,6 +146,28 @@ internal class _JyPartyEntityMetadata extends AbstractEntityMetadata
                                                      
          model_internal::_instance[propertyName] = value;
      }     
+     
+     override public function getMappedByProperty(associationProperty:String):String
+     {
+        switch(associationProperty)
+        {
+            default:
+            {
+                return null;
+            }
+        }   
+     }
+     
+     override public function getPropertyLength(propertyName:String):int
+     {
+        switch(propertyName)
+        {
+            default:
+            {
+                return 0;
+            }
+        }  
+     }
      
      override public function isAvailable(propertyName:String):Boolean
      {         
