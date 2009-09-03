@@ -1,5 +1,5 @@
 /**
- * This is a generated sub-class of _JyParty.as and is intended for behavior
+ * This is a generated sub-class of _JyUser.as and is intended for behavior
  * customization.  This class is only generated when there is no file already present
  * at its target location.  Thus custom behavior that you add here will survive regeneration
  * of the super-class. 
@@ -10,11 +10,11 @@
  * corresponding entity 
  **/ 
  
-package services.jypartyagent
+package valueObjects
 {
 
-[RemoteClass(alias="journey.model.JyParty")]
-public class JyParty extends _Super_JyParty
+[RemoteClass(alias="journey.model.JyUser")]
+public class JyUser extends _Super_JyUser
 {
 
 }

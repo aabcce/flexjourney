@@ -2,7 +2,7 @@
 /**
  * This is a generated class and is not intended for modfication.  
  */
-package services.jyattendagent
+package valueObjects
 {
 import fr.core.model_internal;
 import fr.styles.IStyle;
@@ -17,48 +17,43 @@ import mx.events.PropertyChangeEvent;
 use namespace model_internal;
 
 [ExcludeClass]
-internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
+internal class _JyUserEntityMetadata extends AbstractEntityMetadata
 {
 	private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("auditresult", "useremail", "auditid", "userid", "auditdate", "title", "adddate", "content", "attendid", "partyid");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("auditresult", "useremail", "auditid", "userid", "auditdate", "title", "adddate", "content", "attendid", "partyid");
+    model_internal static var allProperties:Array = new Array("password", "userid", "email");
+    model_internal static var allAssociationProperties:Array = new Array();
+    model_internal static var allRequiredProperties:Array = new Array("password", "userid", "email");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("password", "userid", "email");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("auditresult", "useremail", "auditid", "userid", "auditdate", "title", "adddate", "content", "attendid", "partyid");
+    model_internal static var dataProperties:Array = new Array("password", "userid", "email");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;    
-    model_internal static var entityName:String = "JyAttend";
+    model_internal static var entityName:String = "JyUser";
     model_internal static var dependentsOnMap:Object;    
     model_internal static var dependedOnServices:Array =  new Array();
     
     
-    model_internal var _instance:_Super_JyAttend;
+    model_internal var _instance:_Super_JyUser;
     model_internal static var _nullStyle:Style = new Style();
     
-    public function _JyAttendEntityMetadata(jyAttend : _Super_JyAttend)
+    public function _JyUserEntityMetadata(jyUser : _Super_JyUser)
     {
         // initialize property maps
         if (model_internal::dependentsOnMap == null)
         {
             // depenents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["auditresult"] = new Array();
-            model_internal::dependentsOnMap["useremail"] = new Array();
-            model_internal::dependentsOnMap["auditid"] = new Array();
+            model_internal::dependentsOnMap["password"] = new Array();
             model_internal::dependentsOnMap["userid"] = new Array();
-            model_internal::dependentsOnMap["auditdate"] = new Array();
-            model_internal::dependentsOnMap["title"] = new Array();
-            model_internal::dependentsOnMap["adddate"] = new Array();
-            model_internal::dependentsOnMap["content"] = new Array();
-            model_internal::dependentsOnMap["attendid"] = new Array();
-            model_internal::dependentsOnMap["partyid"] = new Array();
+            model_internal::dependentsOnMap["email"] = new Array();
                         
             // collection base map
             model_internal::collectionBaseMap = new Object()
         }                        
         
-        model_internal::_instance = jyAttend;     
+        model_internal::_instance = jyUser;     
     }
     
     override public function getEntityName():String
@@ -70,7 +65,17 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
     {
         return model_internal::allProperties;
     }
-
+    
+    override public function getAssociationProperties():Array
+    {
+        return model_internal::allAssociationProperties;
+    }    
+    
+    override public function getRequiredProperties():Array
+    {
+         return model_internal::allRequiredProperties;   
+    }
+    
     override public function getDataProperties():Array
     {
         return model_internal::dataProperties;
@@ -89,7 +94,7 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
     override public function getDependants(propertyName:String):Array
     {
        if (model_internal::dataProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a data property of entity JyAttend");  
+            throw new Error(propertyName + " is not a data property of entity JyUser");  
             
        return model_internal::dependentsOnMap[propertyName] as Array;  
     }
@@ -107,7 +112,7 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
     override public function getCollectionBase(propertyName:String):String
     {
        if (model_internal::collectionProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a collection property of entity JyAttend");  
+            throw new Error(propertyName + " is not a collection property of entity JyUser");  
             
        return model_internal::collectionBaseMap[propertyName];
     }                
@@ -121,7 +126,7 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
      {
          if (model_internal::allProperties.indexOf(propertyName) == -1)
          {
-         	throw new Error(propertyName + " does not exist for entity JyAttend");
+         	throw new Error(propertyName + " does not exist for entity JyUser");
          }     
            
          return model_internal::_instance[propertyName];
@@ -131,17 +136,39 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
      {
          if (model_internal::dataProperties.indexOf(propertyName) == -1)
          {
-              throw new Error(propertyName + " is not a data property of entity JyAttend");
+              throw new Error(propertyName + " is not a data property of entity JyUser");
          }  
                                                      
          model_internal::_instance[propertyName] = value;
      }     
      
+     override public function getMappedByProperty(associationProperty:String):String
+     {
+        switch(associationProperty)
+        {
+            default:
+            {
+                return null;
+            }
+        }   
+     }
+     
+     override public function getPropertyLength(propertyName:String):int
+     {
+        switch(propertyName)
+        {
+            default:
+            {
+                return 0;
+            }
+        }  
+     }
+     
      override public function isAvailable(propertyName:String):Boolean
      {         
          if (model_internal::allProperties.indexOf(propertyName) == -1)
          {
-         	throw new Error(propertyName + " does not exist for entity JyAttend");
+         	throw new Error(propertyName + " does not exist for entity JyUser");
          }   
                 
          if (model_internal::allAlwaysAvailableProperties.indexOf(propertyName) != -1)
@@ -238,19 +265,7 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
     }       
      
      [Bindable(event="propertyChange")] 
-     public function get isAuditresultAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isUseremailAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isAuditidAvailable():Boolean
+     public function get isPasswordAvailable():Boolean
      {
         return true;
      }                       
@@ -262,37 +277,7 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
      }                       
                   
      [Bindable(event="propertyChange")] 
-     public function get isAuditdateAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isTitleAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isAdddateAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isContentAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isAttendidAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isPartyidAvailable():Boolean
+     public function get isEmailAvailable():Boolean
      {
         return true;
      }                       
@@ -308,19 +293,7 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
      }
 
     [Bindable(event="propertyChange")]   
-    public function get auditresultStyle():Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get useremailStyle():Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get auditidStyle():Style
+    public function get passwordStyle():Style
     {
 		return model_internal::_nullStyle;		
     }      
@@ -332,37 +305,7 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
     }      
     
     [Bindable(event="propertyChange")]   
-    public function get auditdateStyle():Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get titleStyle():Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get adddateStyle():Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get contentStyle():Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get attendidStyle():Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get partyidStyle():Style
+    public function get emailStyle():Style
     {
 		return model_internal::_nullStyle;		
     }      

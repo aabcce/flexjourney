@@ -3,7 +3,7 @@
  * of this value object you may modify the generated sub-class of this class - JyUser.as.
  */
 
-package services.jyuseragent
+package valueObjects
 {
 import flash.events.EventDispatcher;
 import fr.core.model_internal;
@@ -25,7 +25,7 @@ use namespace model_internal;
 [ExcludeClass]
 public class _Super_JyUser extends EventDispatcher implements IValueObject
 {
-	model_internal var _internal_model : _JyUserEntityMetadata;
+	model_internal var _dminternal_model : _JyUserEntityMetadata;
 
 	/**
 	 * properties
@@ -75,11 +75,12 @@ public class _Super_JyUser extends EventDispatcher implements IValueObject
      */      
     public function set password(value:String) : void 
     {    	
-    	var recalcValid:Boolean = false;
+        var recalcValid:Boolean = false;
     	if (value == null || _internal_password == null)
     	{
     		recalcValid = true;
     	}	
+    	
     	
     	var oldValue:String = _internal_password;               
         if (oldValue !== value)
@@ -95,20 +96,29 @@ public class _Super_JyUser extends EventDispatcher implements IValueObject
     }    
     public function set userid(value:int) : void 
     {    	
+        var recalcValid:Boolean = false;
+    	
+    	
     	var oldValue:int = _internal_userid;               
         if (oldValue !== value)
         {
         	_internal_userid = value;
         	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "userid", oldValue, _internal_userid));
         }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
     }    
     public function set email(value:String) : void 
     {    	
-    	var recalcValid:Boolean = false;
+        var recalcValid:Boolean = false;
     	if (value == null || _internal_email == null)
     	{
     		recalcValid = true;
     	}	
+    	
     	
     	var oldValue:String = _internal_email;               
         if (oldValue !== value)
@@ -157,13 +167,18 @@ public class _Super_JyUser extends EventDispatcher implements IValueObject
 		if (_model.isPasswordAvailable && _internal_password == null)
 		{
 			violatedConsts.push("passwordIsRequired");
+			validationFailureMessages.push("password is required");
 		}
 		if (_model.isEmailAvailable && _internal_email == null)
 		{
 			violatedConsts.push("emailIsRequired");
+			validationFailureMessages.push("email is required");
 		}
 
 		var styleValidity:Boolean = true;
+	
+	
+	
     
         model_internal::_cacheInitialized_isValid = true;
         model_internal::invalidConstraints_der = violatedConsts;
@@ -193,16 +208,16 @@ public class _Super_JyUser extends EventDispatcher implements IValueObject
 	[Bindable(event="propertyChange")] 
     public function get _model() : _JyUserEntityMetadata
     {
-		return model_internal::_internal_model;              
+		return model_internal::_dminternal_model;              
     }	
     
     public function set _model(value : _JyUserEntityMetadata) : void       
     {
-    	var oldValue : _JyUserEntityMetadata = model_internal::_internal_model;               
+    	var oldValue : _JyUserEntityMetadata = model_internal::_dminternal_model;               
         if (oldValue !== value)
         {
-        	model_internal::_internal_model = value;
-        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "_model", oldValue, model_internal::_internal_model));
+        	model_internal::_dminternal_model = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "_model", oldValue, model_internal::_dminternal_model));
         }     
     }      
 

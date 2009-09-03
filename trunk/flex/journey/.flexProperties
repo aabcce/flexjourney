@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexProperties aspUseIIS="true" flexServerFeatures="6" flexServerType="2" serverContextRoot="/journey" serverRoot="D:/Java/lcds/tomcat/webapps/journey/" serverRootURL="http://localhost:8400/journey/" toolCompile="true" useServerFlexSDK="false" version="2"/>
+<flexProperties aspUseIIS="true" flexServerFeatures="6" flexServerType="2" serverContextRoot="/journey" serverRoot="D:/depot/lcds/tomcat/webapps/journey/" serverRootURL="http://localhost:8400/journey" toolCompile="true" useServerFlexSDK="false" version="2"/>
