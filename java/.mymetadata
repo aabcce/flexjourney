@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="journey"
+  name="journeyJava"
   id="myeclipse.1247966435968"
   context-root="/journey"
   j2ee-spec="5.0"
-  archive="journey.war">
+  archive="journeyJava.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>
