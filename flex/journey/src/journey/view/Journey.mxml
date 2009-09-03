@@ -9,7 +9,7 @@
 				
 			</s:HorizontalLayout>
 		</s:layout>
-		<mx:Image source="@Embed(source='../assete/logo.gif')" width="160" height="120">
+		<mx:Image source="@Embed(source='../../assets/logo.gif')" width="160" height="120">
 			
 		</mx:Image>
 		<user:StatusTray>
