@@ -2,6 +2,8 @@ package tests.agents;
 
 import static org.junit.Assert.*;
 import journey.agents.*;
+import journey.model.JyParty;
+import journey.model.JyUser;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -30,10 +32,11 @@ public class JyUserAgentTest {
 	@Test
 	public void testRegister() {
 //		fail("Not yet implemented");
+		JyUser jp = new JyUser();
+		jp.setEmail("aabcce@sohu.com");
+		jp.setPassword("aabcce");
 		JyUserAgent a = new JyUserAgent();
-		String email = "aabcce@sohu.com";
-		String password= "aabcce";
-		a.register(email, password);
+		a.register(jp);
 	}
 
 	@Test

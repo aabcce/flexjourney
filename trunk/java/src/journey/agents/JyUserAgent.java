@@ -11,21 +11,19 @@ import flex.messaging.FlexSession;
 import org.apache.log4j.*;
 
 public class JyUserAgent {
-	public boolean register(String email , String password)
+	public boolean register(JyUser user)
 	{
         Session session = HibernateSessionFactory.getSession();
         Transaction tx = session.beginTransaction();
         
         Criteria c = session.createCriteria(JyUser.class);
+        String email = user.getEmail();
         c.add(Expression.eq("email", email));
         if(c.list().size() > 0)
         {
         	return false;
         }
-        
-        JyUser user = new JyUser();
-        user.setEmail(email);
-        user.setPassword(password);
+
         session.save(user);
 
         tx.commit();
@@ -79,7 +77,9 @@ public class JyUserAgent {
 
 	public boolean lostPassword(String email)
 	{
-		return(false);
+		JyUser user = getJyUserByEmail(email);
+		
+		return(!user.equals(null));
 	}
 	
 	public JyUser getCurrUser()
@@ -87,23 +87,41 @@ public class JyUserAgent {
 		FlexSession flexSession = FlexContext.getFlexSession();
 		Logger logger = LogManager.getLogger(JyUserAgent.class);
 		logger.info("Curr sessionid: " + flexSession.getId());
-		logger.info("Curr userid: " + flexSession.getAttribute("userid"));
 		Object userid = flexSession.getAttribute("userid");
 		if(userid == null || userid.toString().length() <= 0)
 			return(null);
 		
 		logger.info("Curr userid: " + userid);
 		
+		return(getJyUserByID(userid.toString()));
+	}
+	
+	public JyUser getJyUserByID(String userid)
+	{
 		Session session = HibernateSessionFactory.getSession();
-		Transaction tx = session.beginTransaction();
 		Criteria c = session.createCriteria(JyUser.class);
-		c.add(Expression.eq("userid", userid));
+		c.add(Expression.eq("userid", Integer.parseInt(userid)));
 		List result = c.list();
 		if(result.size() <= 0)
 		{
 			return(null);
 		}
-		tx.commit();
+        session.close();
+		
+		return((JyUser)result.get(0));
+	}
+	
+	public JyUser getJyUserByEmail(String email)
+	{
+		Session session = HibernateSessionFactory.getSession();
+		
+		Criteria c = session.createCriteria(JyUser.class);
+		c.add(Expression.eq("email", email));
+		List result = c.list();
+		if(result.size() <= 0)
+		{
+			return(null);
+		}
         session.close();
 		
 		return((JyUser)result.get(0));

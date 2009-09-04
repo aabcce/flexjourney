@@ -1,5 +1,6 @@
 package journey.agents;
 
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Vector;
@@ -15,6 +16,31 @@ import flex.messaging.FlexSession;
 import org.apache.log4j.*;
 
 public class JyAttendAgent {
+	
+	public boolean addAttend(JyAttend attend)
+	{
+		JyUserAgent jua = new JyUserAgent();
+		if(!(jua.isLogin()))
+		{
+			return false;
+		}
+		
+		JyUser currUser = jua.getCurrUser();
+		attend.setAdddate(new Date());
+		attend.setAuditdate(null);
+		attend.setAuditid(0);
+		attend.setAuditresult(-1);
+		attend.setUseremail(currUser.getEmail());
+		attend.setUserid(currUser.getUserid());
+				
+		Session session = HibernateSessionFactory.getSession();
+		Transaction tx = session.beginTransaction();
+		session.save(attend);
+		tx.commit();
+        session.close();
+		return true;
+	}
+	
 	public JyAttend getAttend(int attendid)
 	{
 		JyUserAgent jua = new JyUserAgent();
@@ -24,7 +50,6 @@ public class JyAttendAgent {
 		}
 		
 		Session session = HibernateSessionFactory.getSession();
-		Transaction tx = session.beginTransaction();
 		Criteria c = session.createCriteria(JyAttend.class);
 		c.add(Expression.eq("attendid", attendid));
 		List result = c.list();
@@ -34,13 +59,12 @@ public class JyAttendAgent {
 			return null;
 		}
 		
-		tx.commit();
         session.close();
 
 		return (JyAttend) (result.get(0));		
 	}
 	
-	public List<JyAttend> getAttendList(String[] filters,String orderBy,int limit)
+	public List<JyAttend> getAttendListByID(String partid)
 	{
 		JyUserAgent jua = new JyUserAgent();
 		if(!(jua.isLogin()))
@@ -48,39 +72,15 @@ public class JyAttendAgent {
 			return null;
 		}
 		
-		Session session = HibernateSessionFactory.getSession();
-		Transaction tx = session.beginTransaction();
+		Session session = HibernateSessionFactory.getSession();	
 		Criteria c = session.createCriteria(JyAttend.class);
+		c.add(Expression.eq("partyid", partid));
+		c.add(Expression.eq("auditresult", 1));
 		
-//		if(filters != null)
-//		{
-//			for(String key : filters.Keys)
-//			{
-//				c.add(Expression.eq("Attendid", Attendid));
-//			}
-//		}
+		List<JyAttend> result = (List<JyAttend>)c.list();
 		
-		if(orderBy != null && orderBy.length() > 0)
-		{
-//			c.add()
-		}
-		
-		if(limit > -1)
-		{
-			;
-		}
-		
-		
-		List result = c.list();
-		
-		if(result.size() <= 0)
-		{
-			return null;
-		}
-		
-		tx.commit();
-        session.close();
-
-		return (List<JyAttend>) (result);
+		session.close();
+		return (result);
 	}
+	
 }

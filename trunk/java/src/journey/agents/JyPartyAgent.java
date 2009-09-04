@@ -1,5 +1,6 @@
 package journey.agents;
 
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Vector;
@@ -15,6 +16,28 @@ import flex.messaging.FlexSession;
 import org.apache.log4j.*;
 
 public class JyPartyAgent {
+	
+	public boolean addParty(JyParty party)
+	{
+		JyUserAgent jua = new JyUserAgent();
+		if(!(jua.isLogin()))
+		{
+			return false;
+		}
+		
+		JyUser currUser = jua.getCurrUser();
+		party.setOwnerid(currUser.getUserid());
+		party.setOwneremail(currUser.getEmail());
+		party.setAdddate(new Date());
+				
+		Session session = HibernateSessionFactory.getSession();
+		Transaction tx = session.beginTransaction();
+		session.save(party);
+		tx.commit();
+        session.close();
+		return true;
+	}
+	
 	public JyParty getParty(int partyid)
 	{
 		JyUserAgent jua = new JyUserAgent();
@@ -24,7 +47,6 @@ public class JyPartyAgent {
 		}
 		
 		Session session = HibernateSessionFactory.getSession();
-		Transaction tx = session.beginTransaction();
 		Criteria c = session.createCriteria(JyParty.class);
 		c.add(Expression.eq("partyid", partyid));
 		List result = c.list();
@@ -34,7 +56,6 @@ public class JyPartyAgent {
 			return null;
 		}
 		
-		tx.commit();
         session.close();
 
 		return (JyParty) (result.get(0));		
@@ -49,7 +70,6 @@ public class JyPartyAgent {
 		}
 		
 		Session session = HibernateSessionFactory.getSession();
-		Transaction tx = session.beginTransaction();
 		Criteria c = session.createCriteria(JyParty.class);
 		
 //		if(filters != null)
@@ -62,25 +82,38 @@ public class JyPartyAgent {
 		
 		if(orderBy != null && orderBy.length() > 0)
 		{
-//			c.add()
+			String[] orderByList = orderBy.split(",");
+			for(String o : orderByList)
+			{
+				o = o.trim();
+				if(o.length() <= 0) break;
+				String[] tmp = o.split(" ");
+				if(tmp.length == 2 && tmp[1].trim().toLowerCase().equals("desc"))
+				{
+					c.addOrder(Order.desc(tmp[0]));
+				}
+				else
+				{
+					c.addOrder(Order.asc(tmp[0]));
+				}
+			}
+			
 		}
 		
 		if(limit > -1)
 		{
-			;
-		}
+			
+		}		
 		
-		
-		List result = c.list();
+		List<JyParty> result = (List<JyParty>)c.list();
 		
 		if(result.size() <= 0)
 		{
 			return null;
 		}
 		
-		tx.commit();
         session.close();
 
-		return (List<JyParty>) (result);
+		return (result);
 	}
 }
