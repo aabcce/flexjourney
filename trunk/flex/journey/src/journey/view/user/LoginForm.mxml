@@ -1,7 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
-<mx:Script source="LoginFormAction.as">
-	
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:jyuseragent="services.jyuseragent.*">
+<mx:Script>
+	<![CDATA[
+		import mx.rpc.events.ResultEvent;
+		import mx.events.FlexEvent;
+		import mx.controls.Alert;
+		// ActionScript file
+		import journey.controller.*;
+		import journey.model.ModelLocator;
+		import journey.commands.*;
+		
+		import journey.ui.StatesOption;
+		
+		import com.adobe.cairngorm.control.*;
+		
+		import mx.validators.Validator;
+		[Bindable]
+		private var model:ModelLocator = ModelLocator.getInstance();
+		
+		private function onLogin():void
+		{
+			var resArr:Array = Validator.validateAll([this.emailValid,this.pwdValid]);
+			if(resArr.length > 0)
+				return;
+			
+			var email:String = this.email.text;
+			var pwd:String = this.pwd.text;
+			
+			loginResult.token = jyUserAgent.login(email,pwd);
+			
+		}
+		private function swtichToRegister():void
+		{
+			model.Stage.SwitchState(StatesOption.REGISTER);
+		}
+		
+		private function swtichToLostPassword():void
+		{
+			model.Stage.SwitchState(StatesOption.LOSTPASSWORD);
+		}
+
+		protected function jyUserAgent_resultHandler(event:ResultEvent):void
+		{
+			// TODO Auto-generated method stub
+			if(event.result)
+			{
+				model.Stage.SwitchState(StatesOption.DEFAULT);
+			}
+			else
+			{
+				model.Stage.ShowError(data);
+			}
+		}
+
+	]]>
 </mx:Script>
 	<mx:Form name="Login">
 		<mx:FormHeading label="@Resource(key='User.Login.FormHead',bundle='view')">
@@ -48,4 +100,6 @@
 		
 	</mx:StringValidator>
 
+	<mx:CallResponder id="loginResult"/>
+	<jyuseragent:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)" result="jyUserAgent_resultHandler(event)"/>
 </mx:Canvas>

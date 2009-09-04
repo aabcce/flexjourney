@@ -9,6 +9,8 @@
  	</s:layout>
 	<fx:Script>
 		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
 			import mx.events.PropertyChangeEvent;
 			import mx.binding.utils.ChangeWatcher;
 			import mx.binding.utils.BindingUtils;
@@ -17,15 +19,14 @@
 			import journey.controller.Commands;
 			import journey.controller.CustomEvent;
 			import journey.model.ModelLocator;
-			import com.adobe.cairngorm.control.CairngormEventDispatcher;
+			import journey.ui.*;
 			[Bindable]
 			private var model:ModelLocator = ModelLocator.getInstance();
 
 			protected function linkbutton1_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				CairngormEventDispatcher.getInstance().dispatchEvent(
-					new CustomEvent(journey.controller.Commands.USER_LOGOUT));
+				logoutResult.token = jyUserAgent.logout();
 			}
 
 			protected function group1_creationCompleteHandler(event:FlexEvent):void
@@ -36,8 +37,19 @@
 			{
 			}
 
+			protected function jyUserAgent_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				model.currUser = null;
+				model.Stage.SwitchState(StatesOption.LOGOUT);
+			}
+
 		]]>
 	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="logoutResult"/>
+		<jyuseragent:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)" result="jyUserAgent_resultHandler(event)"/>
+	</fx:Declarations>
 	<mx:Label text="{model.currUser.email}">
 		
 	</mx:Label>

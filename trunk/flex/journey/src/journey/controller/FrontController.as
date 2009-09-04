@@ -16,16 +16,7 @@ package journey.controller
  		}
 		
 		private function initCommand():void
-		{			
-			this.addCommand(Commands.USER_LOGIN,Login);
-			this.addCommand(Commands.USER_LOGOUT,Logout);
-			this.addCommand(Commands.USER_LOSTPASSWORD,LostPassword);
-			this.addCommand(Commands.USER_REGISTER,Register);
-			this.addCommand(Commands.USER_ISLOGIN,IsLogin);
-			this.addCommand(Commands.USER_GETCURRUSER,GetCurrUser);
-			
-			this.addCommand(Commands.JOURNEY_LOADPARTY,LoadParty);
-			this.addCommand(Commands.JOURNEY_LOADPARTYLIST,LoadPartyList);
+		{
 		}
 		
 	}

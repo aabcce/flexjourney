@@ -34,8 +34,11 @@ internal class _Super_JyPartyAgent extends RemoteObjectServiceWrapper
 		 operation.resultType = JyParty; 		 
         operations["getParty"] = operation;
         operation = new Operation(null, "getPartyList");
-		 operation.resultElementType = Object;
+		 operation.resultElementType = JyParty;
         operations["getPartyList"] = operation;
+        operation = new Operation(null, "addParty");
+		 operation.resultType = Boolean; 		 
+        operations["addParty"] = operation;
     
         _serviceControl.operations = operations;   
 		_serviceControl.convertResultHandler = TypeUtility.convertResultHandler;
@@ -82,6 +85,26 @@ internal class _Super_JyPartyAgent extends RemoteObjectServiceWrapper
 	{
 		var _internal_operation:AbstractOperation = _serviceControl.getOperation("getPartyList");
 		var _internal_token:AsyncToken = _internal_operation.send(arg0,arg1,arg2) ;
+
+		return _internal_token;
+	}   
+	
+
+	/**
+	  * This method is a generated wrapper used to call the 'addParty' operation. It returns an AsyncToken whose 
+	  * result property will be populated with the result of the operation when the server response is received. 
+	  * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+	  * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+	  */          
+	public function addParty(arg0:JyParty) : AsyncToken
+	{
+		var _internal_operation:AbstractOperation = _serviceControl.getOperation("addParty");
+		var _internal_token:AsyncToken = _internal_operation.send(arg0) ;
 
 		return _internal_token;
 	}   
