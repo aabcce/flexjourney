@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
-<mx:Script source="LogoutFormAction.as">
-	
+<mx:Script>
+	<![CDATA[
+		// ActionScript file
+		import journey.controller.*;
+		import journey.commands.*;
+		import journey.model.ModelLocator;
+		
+		import com.adobe.cairngorm.control.*;
+		
+		import mx.validators.Validator;
+		import journey.ui.StatesOption;
+		
+		private function switchToLogin():void
+		{
+			ModelLocator.getInstance().Stage.SwitchState(StatesOption.LOGIN);
+		}
+	]]>
 </mx:Script>
 	<mx:Label text="成功退出.">
 		

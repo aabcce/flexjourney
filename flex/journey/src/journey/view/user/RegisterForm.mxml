@@ -1,7 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
-<mx:Script source="RegisterFormAction.as">
-	
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:valueObjects="valueObjects.*" xmlns:jyuseragent="services.jyuseragent.*">
+<mx:Script>
+	<![CDATA[
+		import mx.rpc.events.ResultEvent;
+		// ActionScript file
+		import journey.controller.*;
+		import com.adobe.cairngorm.control.*;
+		
+		import flash.events.MouseEvent;
+		
+		import mx.controls.Button;
+		import mx.controls.Alert;
+		import mx.validators.Validator;
+		import mx.managers.FocusManager;
+		
+		import journey.ui.StatesOption;
+		import journey.model.ModelLocator;
+		[Bindable]
+		private var model:ModelLocator = ModelLocator.getInstance();
+		
+		private function onRegister():void
+		{
+			var resArr:Array = Validator.validateAll(
+				[this.emailValid,this.pwdValid,this.repeatpwdValid]);
+			if(resArr.length > 0)
+				return;
+			
+			var pwd:String = this.pwd.text;
+			var repeatpwd:String = this.repeatpwd.text;
+			var email:String = this.email.text;
+			
+			if(pwd != repeatpwd)
+			{
+				Alert.show("两次密码不一致!");
+			}
+			
+			registerResult.token = jyUserAgent.register(jyUser);
+		}
+
+		protected function registerResult_resultHandler(event:ResultEvent):void
+		{
+			// TODO Auto-generated method stub
+			if(event.result)
+			{
+				Alert.show("注册成功！","",4,null,function(event:Event):void
+				{
+					model.Stage.SwitchState(StatesOption.LOGIN);
+				});
+			}
+			else
+			{
+				model.Stage.ShowError("注册失败，选择别的邮箱！");
+			}
+		}
+
+	]]>
 </mx:Script>
 	<mx:Form name="Login">
 		<mx:FormHeading label="欢迎入住G3SITE">
@@ -101,5 +154,9 @@
 		required="true" requiredFieldError="请输入Email!">
 		
 	</mx:EmailValidator>
-	
+
+	<valueObjects:JyUser id="jyUser" password="{pwd.text}" userid="0" email="{email.text}"/>
+	<jyuseragent:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)"/>
+	<mx:CallResponder id="registerResult" result="registerResult_resultHandler(event)" />
+		
 </mx:Canvas>

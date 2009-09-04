@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" 
+		 width="100%" height="100%" xmlns:valueObjects="valueObjects.*">
+	<s:layout>
+		<s:VerticalLayout>
+			
+		</s:VerticalLayout>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import valueObjects.JyParty;
+			import mx.containers.ViewStack;
+			
+			private var myContainer:ViewStack;
+			public function set party(party:valueObjects.JyParty):void
+			{
+				this.jyParty = party;
+			}
+			public function set container(container:ViewStack):void
+			{
+				this.myContainer = container;
+			}
+
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				this.myContainer.selectedIndex=0;
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<valueObjects:JyParty id="jyParty"/>
+	</fx:Declarations>
+	<s:VGroup horizontalAlign="right">
+		<s:Button label="返回列表" click="button1_clickHandler(event)">
+			
+		</s:Button>
+	</s:VGroup>
+	<mx:Form>
+		<mx:FormItem label="Title">
+			<mx:Text id="titleText" text="{jyParty.title}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Owneremail">
+			<mx:Text id="owneremailText" text="{jyParty.owneremail}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Adddate">
+			<mx:DateField enabled="false" id="adddateDateField" selectedDate="{jyParty.adddate}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Minnum">
+			<mx:Text id="minnumText" text="{jyParty.minnum}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Maxnum">
+			<mx:Text id="maxnumText" text="{jyParty.maxnum}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Content">
+			<mx:Text id="contentText" text="{jyParty.content}"/>
+		</mx:FormItem>
+		<!--
+		<mx:FormItem label="Ownerid">
+			<mx:Text id="owneridText" text="{jyParty.ownerid}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Partyid">
+			<mx:Text id="partyidText" text="{jyParty.partyid}"/>
+		</mx:FormItem>
+		-->
+	</mx:Form>
+</s:Group>

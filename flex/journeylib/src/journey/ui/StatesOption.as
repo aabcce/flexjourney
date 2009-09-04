@@ -2,6 +2,7 @@ package journey.ui
 {
 	public class StatesOption
 	{
+		public static var DEFAULT:String = "defaultState";			
 		public static var LOGIN:String = "loginState";		
 		public static var REGISTER:String = "registerState";
 		public static var LOSTPASSWORD:String = "lostpasswordState";

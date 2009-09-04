@@ -195,6 +195,7 @@ internal class _JyAttendEntityMetadata extends AbstractEntityMetadata
      override public function getIdentityMap():Object
      {
          var returnMap:Object = new Object();
+         returnMap["attendid"] = model_internal::_instance.attendid;
        
          return returnMap;
      }       

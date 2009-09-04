@@ -7,12 +7,70 @@
 			   xmlns:viewuser="journey.view.user.*"
 			    implements="journey.ui.IStage"
 			   creationComplete="application1_creationCompleteHandler(event)" 
-			   xmlns:viewcommon="journey.view.common.*">
-	<fx:Script source="journeyAction.as">		
+			   xmlns:viewcommon="journey.view.common.*" xmlns:jyuseragent="services.jyuseragent.*"
+			   xmlns:control="com.adobe.cairngorm.control.*" 
+			   xmlns:model="journey.model.*" 
+			   xmlns:valueObjects="valueObjects.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			import journey.controller.*;
+			import journey.model.ModelLocator;
+			import journey.ui.*;
+			import valueObjects.*;
+			[Bindable]
+			private var model:ModelLocator = ModelLocator.getInstance();
+			
+			public function SwitchState(state:String):void
+			{
+				this.currentState = state;
+				
+				if(state == journey.ui.StatesOption.DEFAULT)
+				{
+					isLoginResult.token = jyUserAgent.isLogin();
+				}
+			}
+			
+			public function ShowError(error:Object):void
+			{
+				Alert.show(error.toString());
+			}
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub				
+				model.Stage = this;
+				isLoginResult.token = jyUserAgent.isLogin();
+			}
+			
+			protected function isLoginResult_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.result)
+				{
+					getCurrUserResult.token = jyUserAgent.getCurrUser();
+				}
+				else
+				{					
+					SwitchState(StatesOption.LOGIN);
+				}
+			}
+
+			protected function getCurrUserResult_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				model.currUser = (JyUser)(event.result);
+			}
+
+		]]>
 	</fx:Script>
 
 	<s:states>
-		<s:State id="state_default" name="state_default" >
+		<s:State id="defaultState" name="defaultState" >
 		</s:State>
 		<s:State id="loginState" name="loginState">
 		</s:State>
@@ -25,6 +83,15 @@
 		<mx:State id="errorState" name="errorState">
 		</mx:State>
 	</s:states>
+	<fx:Declarations>
+		<control:FrontController id="controller" >
+			
+		</control:FrontController>
+		
+		<jyuseragent:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)"/>
+		<s:CallResponder id="isLoginResult" result="isLoginResult_resultHandler(event)"/>
+		<s:CallResponder id="getCurrUserResult" result="getCurrUserResult_resultHandler(event)"/>
+	</fx:Declarations>
 	
 	<viewuser:LoginForm includeIn="loginState">		
 	</viewuser:LoginForm>
@@ -41,7 +108,8 @@
 	<viewcommon:ErrorView includeIn="errorState">		
 	</viewcommon:ErrorView>
 	
-	<view:Journey includeIn="state_default">
+	<view:MainWindow includeIn="defaultState">
 		
-	</view:Journey>
+	</view:MainWindow>
+
 </s:Application>

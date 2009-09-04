@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo"  width="383" height="390" title="发起聚会" 
+		 close="titlewindow1_closeHandler(event)"  xmlns:valueObjects="valueObjects.*"
+		 xmlns:jypartyagent="services.jypartyagent.*" showCloseButton="true">
+	<fx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			import journey.ui.StatesOption;
+			import journey.model.ModelLocator;
+			[Bindable]
+			private var model:ModelLocator = ModelLocator.getInstance();
+			
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				// TODO Auto-generated method stub
+				closeThis();
+			}
+			
+			protected function button_clickHandler(event:MouseEvent):void
+			{
+				if(jyParty.title.length <= 0 || 
+					jyParty.minnum > jyParty.maxnum )
+				{
+					Alert.show("请仔细填写!");
+					return;
+				}
+				
+				addPartyResult.token = jyPartyAgent.addParty(jyParty);
+			}
+			
+			protected function addPartyResult_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.result)
+				{
+					Alert.show("成功啦！","",4,null,function(event:Event):void
+					{
+						closeThis();
+					});
+				}
+				else
+				{
+					Alert.show("发生未知错误，请重试！");
+				}
+			}
+			
+			private function closeThis():void
+			{
+				PopUpManager.removePopUp(this);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<valueObjects:JyParty id="jyParty" title="{titleTextInput.text}" minnum="{minnumTextInput.value}" 
+							  maxnum="{maxnumTextInput.value}" content="{contentRichEditableText.text}" ownerid="0" partyid="0"/>
+		<s:CallResponder id="addPartyResult" result="addPartyResult_resultHandler(event)"/>
+		<jypartyagent:JyPartyAgent id="jyPartyAgent" fault="Alert.show(event.fault.faultString)"/>
+		
+	</fx:Declarations>
+	
+	<mx:Form>
+		<mx:FormItem label="Title">
+			<s:TextInput id="titleTextInput" text=""/>
+		</mx:FormItem>
+		<!--
+		<mx:FormItem label="Owneremail">
+			<s:TextInput id="owneremailTextInput" text=""/>
+		</mx:FormItem>
+		<mx:FormItem label="Adddate">
+			<mx:DateField id="adddateDateField" selectedDate=""/>
+		</mx:FormItem>
+		-->
+		<mx:FormItem label="Minnum">
+			<s:NumericStepper id="minnumTextInput"  minimum="1" maximum="9999" value="5" >
+				
+			</s:NumericStepper>
+		</mx:FormItem>
+		<mx:FormItem label="Maxnum">
+			<s:NumericStepper id="maxnumTextInput"  minimum="1" maximum="9999" value="100" >
+				
+			</s:NumericStepper>
+		</mx:FormItem>
+		<s:TextArea id="contentRichEditableText" width="100%" height="200" >
+			
+		</s:TextArea>
+		
+		<s:Group>
+			<s:layout>
+				<s:HorizontalLayout>
+					
+				</s:HorizontalLayout>
+			</s:layout>
+			<s:Button label="填好了！" id="button1" click="button_clickHandler(event)"/>
+			<s:Button label="算了" id="button2" click="closeThis()"/>
+		</s:Group>
+		<!--
+		<mx:FormItem label="Ownerid">
+			<s:TextInput id="owneridTextInput" text="{jyParty.ownerid}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Partyid">
+			<s:TextInput id="partyidTextInput" text="{jyParty.partyid}"/>
+		</mx:FormItem>
+		-->
+	</mx:Form>
+</mx:TitleWindow>

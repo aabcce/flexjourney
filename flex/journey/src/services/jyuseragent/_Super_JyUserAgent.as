@@ -8,6 +8,7 @@ package services.jyuseragent
 import mx.rpc.AsyncToken;
 import fr.core.model_internal;
 import mx.rpc.AbstractOperation;
+import valueObjects.JyUser;
 import mx.collections.ItemResponder;
 import mx.rpc.remoting.RemoteObject; 
 import mx.rpc.remoting.Operation;
@@ -29,6 +30,7 @@ internal class _Super_JyUserAgent extends RemoteObjectServiceWrapper
         var operation:Operation;         
          
         operation = new Operation(null, "getCurrUser");
+		 operation.resultType = JyUser; 		 
         operations["getCurrUser"] = operation;
         operation = new Operation(null, "lostPassword");
 		 operation.resultType = Boolean; 		 
@@ -166,10 +168,10 @@ internal class _Super_JyUserAgent extends RemoteObjectServiceWrapper
       *
       * @return an AsyncToken whose result property will be populated with the result of the operation when the server response is received.
 	  */          
-	public function register(arg0:String, arg1:String) : AsyncToken
+	public function register(arg0:JyUser) : AsyncToken
 	{
 		var _internal_operation:AbstractOperation = _serviceControl.getOperation("register");
-		var _internal_token:AsyncToken = _internal_operation.send(arg0,arg1) ;
+		var _internal_token:AsyncToken = _internal_operation.send(arg0) ;
 
 		return _internal_token;
 	}   
