@@ -37,4 +37,4 @@
         constraint `SQL090716103055240` primary key (`USERID`)
     );
 
-    create unique index `SQL090716103055240` on `JOURNEY`.`JY_USER`(`USERID`);
+    create unique index `SQL090716103055240` on `JOURNEY`.`JY_USER`(`USERID`);    
