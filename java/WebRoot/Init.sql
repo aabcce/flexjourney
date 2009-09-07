@@ -37,4 +37,30 @@
         constraint `SQL090716103055240` primary key (`USERID`)
     );
 
-    create unique index `SQL090716103055240` on `JOURNEY`.`JY_USER`(`USERID`);    
+    create unique index `SQL090716103055240` on `JOURNEY`.`JY_USER`(`USERID`);  
+    
+    CREATE TABLE `journey`.`jy_photo` (
+      `photoid` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+      `serial` VARCHAR(50) NOT NULL,
+      `userid` INTEGER UNSIGNED NOT NULL,
+      `partyid` INTEGER UNSIGNED NOT NULL,
+      `title` VARCHAR(200) NOT NULL,
+      `describe` TEXT NOT NULL,
+      `adddate` DATETIME NOT NULL,
+      PRIMARY KEY (`photoid`)
+    )
+    ENGINE = InnoDB;
+    
+    CREATE TABLE `journey`.`jy_article` (
+      `articleid` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+      `serial` VARCHAR(50) NOT NULL,
+      `userid` INTEGER UNSIGNED NOT NULL,
+      `partyid` INTEGER UNSIGNED NOT NULL,
+      `title` VARCHAR(200) NOT NULL,
+      `describe` TEXT NOT NULL,
+      `content` TEXT NOT NULL,
+      `adddate` DATETIME NOT NULL,
+      PRIMARY KEY (`articleid`)
+    )
+    ENGINE = InnoDB;
+      
