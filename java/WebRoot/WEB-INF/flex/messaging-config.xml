@@ -11,20 +11,5 @@
         <channel ref="my-rtmp"/>
         <channel ref="my-streaming-amf"/>
     </default-channels>
-    
-     <destination id="chat">
-
-        <properties>
-            <network>
-                <session-timeout>0</session-timeout>
-            </network>
-            <server>
-                <max-cache-size>1000</max-cache-size>
-                <message-time-to-live>0</message-time-to-live>
-                <durable>false</durable>
-            </server>
-        </properties>
-
-    </destination>
 
 </service>

@@ -9,9 +9,7 @@
     <default-channels>
         <channel ref="my-amf"/>
     </default-channels>
-	
-	
-    
+
      <destination id="JyUserAgent">
         <properties>
             <source>journey.agents.JyUserAgent</source>
@@ -23,6 +21,10 @@
     </destination><destination id="JyAttendAgent">
         <properties>
             <source>journey.agents.JyAttendAgent</source>
+        </properties>
+    </destination><destination id="JyMessageAgent">
+        <properties>
+            <source>journey.agents.JyMessageAgent</source>
         </properties>
     </destination>
 </service>
