@@ -22,7 +22,6 @@ import mx.events.PropertyChangeEvent;
 
 use namespace model_internal;
 
-[Managed]
 [ExcludeClass]
 public class _Super_JyAttend extends EventDispatcher implements IValueObject
 {
@@ -125,6 +124,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_auditresult = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "auditresult", oldValue, _internal_auditresult));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -145,6 +145,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_useremail = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "useremail", oldValue, _internal_useremail));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -161,6 +162,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_auditid = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "auditid", oldValue, _internal_auditid));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -177,6 +179,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_userid = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "userid", oldValue, _internal_userid));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -197,6 +200,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_auditdate = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "auditdate", oldValue, _internal_auditdate));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -217,6 +221,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_title = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "title", oldValue, _internal_title));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -237,6 +242,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_adddate = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "adddate", oldValue, _internal_adddate));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -257,6 +263,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_content = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "content", oldValue, _internal_content));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -273,6 +280,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_attendid = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "attendid", oldValue, _internal_attendid));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -289,6 +297,7 @@ public class _Super_JyAttend extends EventDispatcher implements IValueObject
         if (oldValue !== value)
         {
         	_internal_partyid = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "partyid", oldValue, _internal_partyid));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
