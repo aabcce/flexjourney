@@ -26,15 +26,24 @@ public class JyAttendAgent {
 		}
 		
 		JyUser currUser = jua.getCurrUser();
+		
+		Session session = HibernateSessionFactory.getSession();	
+		Criteria c = session.createCriteria(JyAttend.class);
+        String email = currUser.getEmail();
+        c.add(Expression.eq("useremail", email));
+        c.add(Expression.eq("partyid", attend.getPartyid()));
+        if(c.list().size() > 0)
+        {
+        	return false;
+        }
+        
+		Transaction tx = session.beginTransaction();
 		attend.setAdddate(new Date());
 		attend.setAuditdate(null);
 		attend.setAuditid(0);
 		attend.setAuditresult(-1);
 		attend.setUseremail(currUser.getEmail());
 		attend.setUserid(currUser.getUserid());
-				
-		Session session = HibernateSessionFactory.getSession();
-		Transaction tx = session.beginTransaction();
 		session.save(attend);
 		tx.commit();
         session.close();
@@ -74,13 +83,38 @@ public class JyAttendAgent {
 		
 		Session session = HibernateSessionFactory.getSession();	
 		Criteria c = session.createCriteria(JyAttend.class);
-		c.add(Expression.eq("partyid", partid));
+		c.add(Expression.eq("partyid", Integer.parseInt(partid)));
 		c.add(Expression.eq("auditresult", 1));
 		
 		List<JyAttend> result = (List<JyAttend>)c.list();
 		
 		session.close();
 		return (result);
+	}
+	
+	public boolean isCurrUserAttended(String partid)
+	{
+	    JyUserAgent jua = new JyUserAgent();
+		if(!(jua.isLogin()))
+		{
+			return false;
+		}
+		return(isAttended(partid,jua.getCurrUser().getUserid().toString()));
+		
+	}
+	
+	public boolean isAttended(String partid,String userid)
+	{		
+		Session session = HibernateSessionFactory.getSession();	
+		Criteria c = session.createCriteria(JyAttend.class);
+		c.add(Expression.eq("partyid", Integer.parseInt(partid)));
+		c.add(Expression.eq("userid", Integer.parseInt(userid)));
+		c.add(Expression.eq("auditresult", 1));
+		
+		List<JyAttend> result = (List<JyAttend>)c.list();
+		
+		session.close();
+		return (!result.equals(null));
 	}
 	
 }
