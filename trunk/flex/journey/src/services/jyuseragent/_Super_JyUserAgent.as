@@ -40,6 +40,12 @@ internal class _Super_JyUserAgent extends RemoteObjectServiceWrapper
         operation = new Operation(null, "login");
 		 operation.resultType = Boolean; 		 
         operations["login"] = operation;
+        operation = new Operation(null, "getJyUserByID");
+		 operation.resultType = JyUser; 		 
+        operations["getJyUserByID"] = operation;
+        operation = new Operation(null, "getJyUserByEmail");
+		 operation.resultType = JyUser; 		 
+        operations["getJyUserByEmail"] = operation;
         operation = new Operation(null, "isLogin");
 		 operation.resultType = Boolean; 		 
         operations["isLogin"] = operation;
@@ -132,6 +138,46 @@ internal class _Super_JyUserAgent extends RemoteObjectServiceWrapper
 	{
 		var _internal_operation:AbstractOperation = _serviceControl.getOperation("login");
 		var _internal_token:AsyncToken = _internal_operation.send(arg0,arg1) ;
+
+		return _internal_token;
+	}   
+	
+
+	/**
+	  * This method is a generated wrapper used to call the 'getJyUserByID' operation. It returns an AsyncToken whose 
+	  * result property will be populated with the result of the operation when the server response is received. 
+	  * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+	  * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+	  */          
+	public function getJyUserByID(arg0:String) : AsyncToken
+	{
+		var _internal_operation:AbstractOperation = _serviceControl.getOperation("getJyUserByID");
+		var _internal_token:AsyncToken = _internal_operation.send(arg0) ;
+
+		return _internal_token;
+	}   
+	
+
+	/**
+	  * This method is a generated wrapper used to call the 'getJyUserByEmail' operation. It returns an AsyncToken whose 
+	  * result property will be populated with the result of the operation when the server response is received. 
+	  * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+	  * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+	  */          
+	public function getJyUserByEmail(arg0:String) : AsyncToken
+	{
+		var _internal_operation:AbstractOperation = _serviceControl.getOperation("getJyUserByEmail");
+		var _internal_token:AsyncToken = _internal_operation.send(arg0) ;
 
 		return _internal_token;
 	}   

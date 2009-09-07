@@ -25,9 +25,6 @@
       <annotation name="original signature">
         <item name="returnType">JyUser</item>
       </annotation>
-      <annotation name="ValidProperties">
-        <item name="propertySpecifier">password,userid,email</item>
-      </annotation>
     </function>
     <function name="lostPassword" arguments="arg0:string" return-type="boolean">
       <annotation name="analyze group">
@@ -40,10 +37,7 @@
     </function>
     <function name="logout" return-type="void">
       <annotation name="analyze group">
-        <item name="analyzed">false</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="returnType">void</item>
+        <item name="analyzed">true</item>
       </annotation>
     </function>
     <function name="login" arguments="arg0:string,arg1:string" return-type="boolean">
@@ -53,6 +47,24 @@
       <annotation name="original signature">
         <item name="inputParams">string,string</item>
         <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="getJyUserByID" arguments="arg0:string" return-type="JyUser">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">JyUser</item>
+      </annotation>
+    </function>
+    <function name="getJyUserByEmail" arguments="arg0:string" return-type="JyUser">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">JyUser</item>
       </annotation>
     </function>
     <function name="isLogin" return-type="boolean">
@@ -65,7 +77,7 @@
     </function>
     <function name="register" arguments="arg0:JyUser" return-type="boolean">
       <annotation name="analyze group">
-        <item name="analyzed">false</item>
+        <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
         <item name="inputParams">JyUser</item>
@@ -86,19 +98,16 @@
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
     </annotation>
-    <annotation name="getCurrUser">
-      <item name="propertySpecifier">password,userid,email</item>
-    </annotation>
     <property name="password" type="string" required="true"/>
     <property name="userid" type="integer" required="true"/>
     <property name="email" type="string" required="true"/>
   </entity>
-  <service name="JyPartyAgent">
+  <service name="JyMessageAgent">
     <annotation name="ActionScriptGeneration">
-      <item name="Source">journey.agents.JyPartyAgent</item>
+      <item name="Source">journey.agents.JyMessageAgent</item>
       <item name="ServiceType">RemoteObject</item>
-      <item name="Package">services.jypartyagent</item>
-      <item name="Destination">JyPartyAgent</item>
+      <item name="Package">services.jymessageagent</item>
+      <item name="Destination">JyMessageAgent</item>
     </annotation>
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
@@ -110,149 +119,23 @@
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">LCDS</item>
     </annotation>
-    <function name="getParty" arguments="arg0:integer" return-type="JyParty">
+    <function name="roomExists" arguments="arg0:string" return-type="boolean">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">integer</item>
-        <item name="returnType">JyParty</item>
-      </annotation>
-    </function>
-    <function name="getPartyList" arguments="arg0:string[],arg1:string,arg2:integer" return-type="JyParty[]">
-      <annotation name="original signature">
-        <item name="inputParams">string,string,integer</item>
-        <item name="returnType">opaque</item>
-      </annotation>
-      <annotation name="ValidProperties">
-        <item name="propertySpecifier">minnum,owneremail,title,adddate,maxnum,content,ownerid,partyid</item>
-      </annotation>
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-    </function>
-    <function name="addParty" arguments="arg0:JyParty" return-type="boolean">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">JyParty</item>
-        <item name="returnType">boolean</item>
-      </annotation>
-    </function>
-  </service>
-  <entity name="JyParty">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">JyParty</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">journey.model.JyParty</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">JyPartyAgent</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <annotation name="getPartyList">
-      <item name="propertySpecifier">minnum,owneremail,title,adddate,maxnum,content,ownerid,partyid</item>
-    </annotation>
-    <property name="minnum" type="integer" required="true"/>
-    <property name="owneremail" type="string" required="true"/>
-    <property name="title" type="string" required="true"/>
-    <property name="adddate" type="date" required="true"/>
-    <property name="maxnum" type="integer" required="true"/>
-    <property name="content" type="string" required="true"/>
-    <property name="ownerid" type="integer" required="true"/>
-    <property name="partyid" type="integer" required="true"/>
-  </entity>
-  <service name="JyAttendAgent">
-    <annotation name="ActionScriptGeneration">
-      <item name="Source">journey.agents.JyAttendAgent</item>
-      <item name="ServiceType">RemoteObject</item>
-      <item name="Package">services.jyattendagent</item>
-      <item name="Destination">JyAttendAgent</item>
-    </annotation>
-    <annotation name="ServiceConfig">
-      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
-      <item name="contextRoot">/journey</item>
-      <item name="rootUrl">http://localhost:8400/journey</item>
-      <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://localhost:8400/journey/messagebroker/amf</item>
-    </annotation>
-    <annotation name="ServiceTypeGroup">
-      <item name="ServiceBackendType">LCDS</item>
-    </annotation>
-    <function name="addAttend" arguments="arg0:JyAttend" return-type="boolean">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">JyAttend</item>
-        <item name="returnType">boolean</item>
-      </annotation>
-    </function>
-    <function name="getAttend" arguments="arg0:integer" return-type="JyAttend">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">integer</item>
-        <item name="returnType">JyAttend</item>
-      </annotation>
-      <annotation name="ValidProperties">
-        <item name="propertySpecifier">auditresult,useremail,auditid,userid,auditdate,title,adddate,content,attendid,partyid</item>
-      </annotation>
-    </function>
-    <function name="getAttendListByID" arguments="arg0:string" return-type="JyAttend[]">
       <annotation name="original signature">
         <item name="inputParams">string</item>
-        <item name="returnType">opaque</item>
+        <item name="returnType">boolean</item>
       </annotation>
-      <annotation name="ValidProperties">
-        <item name="propertySpecifier">auditresult,useremail,auditid,userid,auditdate,title,adddate,content,attendid,partyid</item>
-      </annotation>
+    </function>
+    <function name="startMessage" arguments="arg0:string" return-type="boolean">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">boolean</item>
+      </annotation>
     </function>
   </service>
-  <entity name="JyAttend" persistent="true">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">JyAttend</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">journey.model.JyAttend</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">JyAttendAgent</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <annotation name="getAttendList">
-      <item name="propertySpecifier">auditresult,useremail,auditid,userid,auditdate,title,adddate,content,attendid,partyid</item>
-      <item name="pagingEnabled">true</item>
-    </annotation>
-    <annotation name="DataManagement">
-      <item name="managingService">JyAttendAgent</item>
-      <item name="fillFunc">getAttendList</item>
-    </annotation>
-    <annotation name="getAttend">
-      <item name="propertySpecifier">auditresult,useremail,auditid,userid,auditdate,title,adddate,content,attendid,partyid</item>
-    </annotation>
-    <annotation name="getAttendListByID">
-      <item name="propertySpecifier">auditresult,useremail,auditid,userid,auditdate,title,adddate,content,attendid,partyid</item>
-    </annotation>
-    <property name="auditresult" type="integer" required="true"/>
-    <property name="useremail" type="string" required="true"/>
-    <property name="auditid" type="integer" required="true"/>
-    <property name="userid" type="integer" required="true"/>
-    <property name="auditdate" type="date" required="true"/>
-    <property name="title" type="string" required="true"/>
-    <property name="adddate" type="date" required="true"/>
-    <property name="content" type="string" required="true"/>
-    <id name="attendid" type="integer"/>
-    <property name="partyid" type="integer" required="true"/>
-  </entity>
 </model>

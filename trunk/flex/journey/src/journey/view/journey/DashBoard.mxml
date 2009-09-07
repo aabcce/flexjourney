@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/halo"
-		  creationComplete="group1_creationCompleteHandler(event)" xmlns:jypartyagent="services.jypartyagent.*" xmlns:journey="journey.view.journey.*">
+		  creationComplete="group1_creationCompleteHandler(event)" xmlns:jypartyagent="services.jypartyagent.*" 
+		  xmlns:journey="journey.view.journey.*" show="vbox1_showHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
 			import mx.events.FlexEvent;
 			import mx.controls.Alert;
@@ -16,16 +18,17 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			import mx.events.ListEvent;
-			import mx.events.CloseEvent;
+			import flash.events.Event;
 			
 			[Bindable]
 			private var model:ModelLocator = ModelLocator.getInstance();
 			
 			protected function group1_creationCompleteHandler(event:FlexEvent):void
 			{
+				loadPartyList(null);
 			}
 			
-			protected function loadPartyList(params:Object):void
+			public function loadPartyList(params:Object):void
 			{
 				var filters:ArrayCollection;
 				var orderBy:String;
@@ -65,15 +68,13 @@
 				PopUpManager.addPopUp(newParty, this, false, null);
 				PopUpManager.centerPopUp(newParty);
 				
-				newParty.addEventListener(mx.events.CloseEvent.CLOSE,function(event:mx.events.CloseEvent):void
+				newParty.addEventListener(flash.events.Event.REMOVED,function(event:flash.events.Event):void
 				{
-					loadPartyList(null);
+					if(event.target == newParty)
+					{
+						loadPartyList(null);
+					}
 				});
-			}
-
-			protected function adg1_creationCompleteHandler(event:FlexEvent):void
-			{
-				loadPartyList(null);
 			}
 
 			protected function getPartyListResult_resultHandler(event:ResultEvent):void
@@ -103,34 +104,30 @@
 			{
 				loadPartyList(null);
 			}
+
+			protected function vbox1_showHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				loadPartyList(null);
+			}
+
 		]]>
 	</fx:Script>
-	<s:layout>
-		<s:VerticalLayout>
-			
-		</s:VerticalLayout>
- 	</s:layout>
+
 	<fx:Declarations>
 		<s:CallResponder id="getPartyListResult" result="getPartyListResult_resultHandler(event)"/>
 		<jypartyagent:JyPartyAgent id="jyPartyAgent" fault="Alert.show(event.fault.faultString)"/>		
 	</fx:Declarations>
 	
 	<mx:ViewStack id="viewStack1" width="100%" height="100%">
-		<mx:Canvas width="100%" height="100%">
+		<mx:VBox width="100%" height="100%">
+			
 			<mx:AdvancedDataGrid id="adg1" designViewDataType="flat" left="6" right="6" top="48" bottom="6" 
 								 dataProvider="{getPartyListResult.lastResult}" itemClick="adg1_itemClickHandler(event)" 
-								 creationComplete="adg1_creationCompleteHandler(event)" editable="false">
+								 editable="false">
 				<mx:columns>
 					<mx:AdvancedDataGridColumn headerText="Title" dataField="title"/>
 					<mx:AdvancedDataGridColumn headerText="Owner" dataField="owneremail" >
-						<mx:itemRenderer>
-							<fx:Component>
-								<mx:LinkButton label="{data.owneremail}" 
-											   click="((DashBoard)(this.parent.parent.parent.parent.parent)).listPartyByUserID(data.OWNERID)">
-							
-								</mx:LinkButton>
-							</fx:Component>
-						</mx:itemRenderer>
 					</mx:AdvancedDataGridColumn>
 					<mx:AdvancedDataGridColumn headerText="Maxnum" dataField="maxnum"/>
 					<mx:AdvancedDataGridColumn headerText="Minnum" dataField="minnum"/>
@@ -143,36 +140,30 @@
 											   itemEditor="mx.controls.DateField" editorDataField="selectedDate"/>
 				</mx:columns>
 			</mx:AdvancedDataGrid>
-		</mx:Canvas>
-		<mx:Canvas width="100%" height="100%">
-			<journey:PartyDetial id="detail" party="{(JyParty)(adg1.selectedItem)}" container="{viewStack1}">			
-			</journey:PartyDetial>
-		</mx:Canvas>
-	</mx:ViewStack>
-
-	<mx:ControlBar id="ControlBar">
-		<mx:Button label="@Resource(key='DashBoard.ControlBar.NewParty',bundle='view')"
-		 click="label1_clickHandler(event)">
-			
-		</mx:Button>
-		<s:Group>
-			<s:layout>
-				<s:HorizontalLayout>
+						
+			<s:Group>
+				<s:layout>
+					<s:HorizontalLayout>
+						
+					</s:HorizontalLayout>
+				</s:layout>
+				<mx:Button label="@Resource(key='DashBoard.ControlBar.NewParty',bundle='view')"
+						   click="label1_clickHandler(event)">
 					
-				</s:HorizontalLayout>
-			</s:layout>
-			
-			<mx:Label text="@Resource(key='DashBoard.SearchPanel.Search',bundle='view')" fontWeight="bold">
-				
-			</mx:Label>
-			<mx:Label text="@Resource(key='DashBoard.SearchPanel.Keyword',bundle='view')">
-				
-			</mx:Label>
-			<s:TextInput id="keywordTextInput" text="">
-				
-			</s:TextInput> 
-			<s:Button label="Search" click="onSearch()"/>
-		</s:Group>
-
-	</mx:ControlBar>
-</s:Group>
+				</mx:Button>
+				<mx:Label text="@Resource(key='DashBoard.SearchPanel.Search',bundle='view')" fontWeight="bold">
+					
+				</mx:Label>
+				<mx:Label text="@Resource(key='DashBoard.SearchPanel.Keyword',bundle='view')">
+					
+				</mx:Label>
+				<s:TextInput id="keywordTextInput" text="">
+					
+				</s:TextInput> 
+				<s:Button label="Search" click="onSearch()"/>
+			</s:Group>
+		</mx:VBox>
+		<journey:PartyDetial id="detail" width="100%" height="100%" party="{(JyParty)(adg1.selectedItem)}" container="{viewStack1}">			
+		</journey:PartyDetial>
+	</mx:ViewStack>
+</mx:VBox>

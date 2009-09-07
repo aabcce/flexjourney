@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" 
-		 width="100%" height="100%" xmlns:valueObjects="valueObjects.*" xmlns:jyattendagent="services.jyattendagent.*">
-	<s:layout>
-		<s:VerticalLayout>
-			
-		</s:VerticalLayout>
-	</s:layout>
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" 
+		 width="100%" height="100%" xmlns:valueObjects="valueObjects.*" xmlns:jyattendagent="services.jyattendagent.*"
+		  creationComplete="vbox1_creationCompleteHandler(event)" show="vbox1_showHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.ResultEvent;
 			import mx.controls.Alert;
@@ -25,10 +22,10 @@
 			
 			protected function addAttendResult_resultHandler(event:ResultEvent):void
 			{
-				// TODO Auto-generated method stub
 				if(event.result)
 				{
 					Alert.show("报名成功，请静候佳音！");
+					jyAttend = new JyAttend();
 				}
 				else
 				{
@@ -36,16 +33,21 @@
 				}
 			}
 
-			protected function button2_clickHandler(event:MouseEvent):void
+			protected function getAttendListResult_resultHandler(event:ResultEvent):void
 			{
-				getAttendListResult.token = jyAttendAgent.getAttendListByID(model.currParty.partyid);
+				attendList = ArrayCollection(event.result);
 			}
 
 
-			protected function getAttendListResult_resultHandler(event:ResultEvent):void
+			protected function vbox1_creationCompleteHandler(event:FlexEvent):void
 			{
-				// TODO Auto-generated method stub
-				attendList = event.result;
+				getAttendListResult.token = jyAttendAgent.getAttendListByID(model.currParty.partyid.toString());
+			}
+
+
+			protected function vbox1_showHandler(event:FlexEvent):void
+			{
+				getAttendListResult.token = jyAttendAgent.getAttendListByID(model.currParty.partyid.toString());
 			}
 
 		]]>
@@ -56,7 +58,7 @@
 		<s:CallResponder id="addAttendResult" result="addAttendResult_resultHandler(event)"/>
 		<s:CallResponder id="getAttendListResult" result="getAttendListResult_resultHandler(event)"/>		
 	</fx:Declarations>
-	<mx:Form>
+	<mx:Form id="attendForm">
 		<mx:FormItem label="Title">
 			<s:TextInput id="titleTextInput" text="@{jyAttend.title}"/>
 		</mx:FormItem>
@@ -70,26 +72,21 @@
 		</mx:FormItem>
 	</mx:Form>
 
-	<mx:Repeater id="tileList1" dataProvider="{attendList}" width="100%">
-		<mx:itemRenderer>
-			<fx:Component>
-				<mx:Form>
-					<mx:FormItem label="Title">
-						<mx:Text id="titleText" text="{data.title}"/>
-					</mx:FormItem>
-					<mx:FormItem label="Useremail">
-						<mx:Text id="useremailText" text="{data.useremail}"/>
-					</mx:FormItem>
-					<mx:FormItem label="Adddate">
-						<mx:DateField enabled="false" id="adddateDateField" selectedDate="{data.adddate}"/>
-					</mx:FormItem>
-					<mx:FormItem label="Content">
-						<s:TextArea id="contentText" text="{data.content}">
-							
-						</s:TextArea>
-					</mx:FormItem>
-				</mx:Form>
-			</fx:Component>
-		</mx:itemRenderer>
+	<mx:Repeater id="myRepeater" dataProvider="{attendList}" width="100%">
+		
+			<mx:Form>
+				<mx:FormItem label="Title">
+					<mx:Text id="titleText" text="{myRepeater.currentItem.title}"/>
+				</mx:FormItem>
+				<mx:FormItem label="Useremail">
+					<mx:Text id="useremailText" text="{myRepeater.currentItem.useremail}"/>
+				</mx:FormItem>
+				<mx:FormItem label="Adddate">
+					<mx:Label id="adddateText" text="{myRepeater.currentItem.adddate}"/>					
+				</mx:FormItem>
+				<mx:FormItem label="Content">	
+					<mx:Text id="contentText" text="{myRepeater.currentItem.content}"/>
+				</mx:FormItem>
+			</mx:Form>
 	</mx:Repeater>	
-</s:Group>
+</mx:VBox>
