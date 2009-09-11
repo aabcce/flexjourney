@@ -1,5 +1,6 @@
 package journey.agents;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.List;
@@ -38,7 +39,7 @@ public class JyAttendAgent {
         }
         
 		Transaction tx = session.beginTransaction();
-		attend.setAdddate(new Date());
+		attend.setAdddate(new Timestamp(new Date().getTime()));
 		attend.setAuditdate(null);
 		attend.setAuditid(0);
 		attend.setAuditresult(-1);
@@ -50,7 +51,7 @@ public class JyAttendAgent {
 		return true;
 	}
 	
-	public JyAttend getAttend(int attendid)
+	public JyAttend getAttend(String attendid)
 	{
 		JyUserAgent jua = new JyUserAgent();
 		if(!(jua.isLogin()))
@@ -60,20 +61,18 @@ public class JyAttendAgent {
 		
 		Session session = HibernateSessionFactory.getSession();
 		Criteria c = session.createCriteria(JyAttend.class);
-		c.add(Expression.eq("attendid", attendid));
-		List result = c.list();
+		c.add(Expression.eq("attendid", Integer.parseInt(attendid)));
+		List<JyAttend> result = (List<JyAttend>)(c.list());
 		
 		if(result.size() <= 0)
 		{
 			return null;
 		}
 		
-        session.close();
-
-		return (JyAttend) (result.get(0));		
+		return (result.get(0));		
 	}
 	
-	public List<JyAttend> getAttendListByID(String partid)
+	public List<JyAttend> getAttendListByID(String partyid)
 	{
 		JyUserAgent jua = new JyUserAgent();
 		if(!(jua.isLogin()))
@@ -83,37 +82,34 @@ public class JyAttendAgent {
 		
 		Session session = HibernateSessionFactory.getSession();	
 		Criteria c = session.createCriteria(JyAttend.class);
-		c.add(Expression.eq("partyid", Integer.parseInt(partid)));
+		c.add(Expression.eq("partyid", Integer.parseInt(partyid)));
 		c.add(Expression.eq("auditresult", 1));
 		
 		List<JyAttend> result = (List<JyAttend>)c.list();
-		
-		session.close();
+
 		return (result);
 	}
 	
-	public boolean isCurrUserAttended(String partid)
+	public boolean isCurrUserAttended(String partyid)
 	{
 	    JyUserAgent jua = new JyUserAgent();
 		if(!(jua.isLogin()))
 		{
 			return false;
 		}
-		return(isAttended(partid,jua.getCurrUser().getUserid().toString()));
-		
+		return(isAttended(partyid,jua.getCurrUser().getUserid().toString()));
 	}
 	
-	public boolean isAttended(String partid,String userid)
+	public boolean isAttended(String partyid,String userid)
 	{		
 		Session session = HibernateSessionFactory.getSession();	
 		Criteria c = session.createCriteria(JyAttend.class);
-		c.add(Expression.eq("partyid", Integer.parseInt(partid)));
+		c.add(Expression.eq("partyid", Integer.parseInt(partyid)));
 		c.add(Expression.eq("userid", Integer.parseInt(userid)));
 		c.add(Expression.eq("auditresult", 1));
 		
 		List<JyAttend> result = (List<JyAttend>)c.list();
-		
-		session.close();
+
 		return (!result.equals(null));
 	}
 	

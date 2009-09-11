@@ -1,5 +1,6 @@
 package journey.agents;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.List;
@@ -28,7 +29,7 @@ public class JyPartyAgent {
 		JyUser currUser = jua.getCurrUser();
 		party.setOwnerid(currUser.getUserid());
 		party.setOwneremail(currUser.getEmail());
-		party.setAdddate(new Date());
+		party.setAdddate(new Timestamp(new Date().getTime()));
 				
 		Session session = HibernateSessionFactory.getSession();
 		Transaction tx = session.beginTransaction();
@@ -55,8 +56,6 @@ public class JyPartyAgent {
 		{
 			return null;
 		}
-		
-        session.close();
 
 		return (JyParty) (result.get(0));		
 	}
@@ -111,8 +110,6 @@ public class JyPartyAgent {
 		{
 			return null;
 		}
-		
-        session.close();
 
 		return (result);
 	}

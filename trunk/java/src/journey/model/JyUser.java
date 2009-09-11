@@ -1,9 +1,16 @@
 package journey.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * JyUser entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "jy_user", catalog = "journey")
 public class JyUser implements java.io.Serializable {
 
 	// Fields
@@ -25,7 +32,9 @@ public class JyUser implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "USERID", unique = true, nullable = false)
 	public Integer getUserid() {
 		return this.userid;
 	}
@@ -34,6 +43,7 @@ public class JyUser implements java.io.Serializable {
 		this.userid = userid;
 	}
 
+	@Column(name = "PASSWORD", length = 36)
 	public String getPassword() {
 		return this.password;
 	}
@@ -42,6 +52,7 @@ public class JyUser implements java.io.Serializable {
 		this.password = password;
 	}
 
+	@Column(name = "EMAIL", length = 50)
 	public String getEmail() {
 		return this.email;
 	}

@@ -1,66 +1,63 @@
-    create table `JOURNEY`.`JY_ATTEND`(
-        `ATTENDID` INTEGER not null auto_increment,
-       `PARTYID` INTEGER,
-       `USERID` INTEGER,
-       `USEREMAIL` VARCHAR(50),
-       `TITLE` VARCHAR(200),
-       `CONTENT` TEXT,
-       `ADDDATE` DATE,
-       `AUDITID` INTEGER,
-       `AUDITDATE` DATE,
-       `AUDITRESULT` INTEGER,
-        constraint `SQL090719084223980` primary key (`ATTENDID`)
-    );
+ DROP TABLE IF EXISTS `journey`.`jy_article`;
+CREATE TABLE  `journey`.`jy_article` (
+  `articleid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `serial` varchar(50) NOT NULL,
+  `userid` int(10) unsigned NOT NULL,
+  `partyid` int(10) unsigned NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `comment` varchar(200) NOT NULL,
+  `content` text NOT NULL,
+  `adddate` datetime NOT NULL,
+  `useremail` varchar(50) NOT NULL,
+  PRIMARY KEY (`articleid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+ 
+ DROP TABLE IF EXISTS `journey`.`jy_attend`;
+CREATE TABLE  `journey`.`jy_attend` (
+  `ATTENDID` int(11) NOT NULL AUTO_INCREMENT,
+  `PARTYID` int(11) DEFAULT NULL,
+  `USERID` int(11) DEFAULT NULL,
+  `USEREMAIL` varchar(50) DEFAULT NULL,
+  `TITLE` varchar(200) DEFAULT NULL,
+  `CONTENT` text,
+  `ADDDATE` datetime DEFAULT NULL,
+  `AUDITID` int(11) DEFAULT NULL,
+  `AUDITDATE` datetime DEFAULT NULL,
+  `AUDITRESULT` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ATTENDID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ 
+DROP TABLE IF EXISTS `journey`.`jy_party`;
+CREATE TABLE  `journey`.`jy_party` (
+  `PARTYID` int(11) NOT NULL AUTO_INCREMENT,
+  `OWNERID` int(11) DEFAULT NULL,
+  `OWNEREMAIL` varchar(50) DEFAULT NULL,
+  `MINNUM` int(11) DEFAULT NULL,
+  `MAXNUM` int(11) DEFAULT NULL,
+  `TITLE` varchar(200) DEFAULT NULL,
+  `CONTENT` text,
+  `ADDDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`PARTYID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    create unique index `SQL090719084223980` on `JOURNEY`.`JY_ATTEND`(`ATTENDID`);
-    
-    
-    create table `JOURNEY`.`JY_PARTY`(
-        `PARTYID` INTEGER not null auto_increment,
-       `OWNERID` INTEGER,
-       `OWNEREMAIL` VARCHAR(50),
-       `MINNUM` INTEGER,
-       `MAXNUM` INTEGER,
-       `TITLE` VARCHAR(200),
-       `CONTENT` TEXT,
-       `ADDDATE` DATE,
-        constraint `SQL090719083442790` primary key (`PARTYID`)
-    );
+DROP TABLE IF EXISTS `journey`.`jy_photo`;
+CREATE TABLE  `journey`.`jy_photo` (
+  `photoid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `serial` varchar(50) NOT NULL,
+  `userid` int(10) unsigned NOT NULL,
+  `partyid` int(10) unsigned NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `comment` varchar(200) NOT NULL,
+  `adddate` datetime NOT NULL,
+  `useremail` varchar(50) NOT NULL,
+  PRIMARY KEY (`photoid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    create unique index `SQL090719083442790` on `JOURNEY`.`JY_PARTY`(`PARTYID`);
-    
-    
-    create table `JOURNEY`.`JY_USER`(
-        `USERID` INTEGER not null auto_increment,
-       `PASSWORD` VARCHAR(36),
-       `EMAIL` VARCHAR(50),
-        constraint `SQL090716103055240` primary key (`USERID`)
-    );
-
-    create unique index `SQL090716103055240` on `JOURNEY`.`JY_USER`(`USERID`);  
-    
-    CREATE TABLE `journey`.`jy_photo` (
-      `photoid` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-      `serial` VARCHAR(50) NOT NULL,
-      `userid` INTEGER UNSIGNED NOT NULL,
-      `partyid` INTEGER UNSIGNED NOT NULL,
-      `title` VARCHAR(200) NOT NULL,
-      `describe` TEXT NOT NULL,
-      `adddate` DATETIME NOT NULL,
-      PRIMARY KEY (`photoid`)
-    )
-    ENGINE = InnoDB;
-    
-    CREATE TABLE `journey`.`jy_article` (
-      `articleid` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-      `serial` VARCHAR(50) NOT NULL,
-      `userid` INTEGER UNSIGNED NOT NULL,
-      `partyid` INTEGER UNSIGNED NOT NULL,
-      `title` VARCHAR(200) NOT NULL,
-      `describe` TEXT NOT NULL,
-      `content` TEXT NOT NULL,
-      `adddate` DATETIME NOT NULL,
-      PRIMARY KEY (`articleid`)
-    )
-    ENGINE = InnoDB;
+DROP TABLE IF EXISTS `journey`.`jy_user`;
+CREATE TABLE  `journey`.`jy_user` (
+  `USERID` int(11) NOT NULL AUTO_INCREMENT,
+  `PASSWORD` varchar(36) DEFAULT NULL,
+  `EMAIL` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`USERID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
       
