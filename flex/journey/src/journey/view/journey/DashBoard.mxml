@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo"
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="100%" 
 		  creationComplete="group1_creationCompleteHandler(event)" xmlns:jypartyagent="services.jypartyagent.*" 
-		  xmlns:journey="journey.view.journey.*" show="vbox1_showHandler(event)">
+		  xmlns:journey="journey.view.journey.*">
 	<fx:Script>
 		<![CDATA[
+			import valueObjects.JyUser;
+			import mx.events.PropertyChangeEvent;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
 			import mx.events.FlexEvent;
@@ -25,7 +27,10 @@
 			
 			protected function group1_creationCompleteHandler(event:FlexEvent):void
 			{
-				loadPartyList(null);
+				if(model.currUser)
+				{
+					loadPartyList(null);
+				}				
 			}
 			
 			public function loadPartyList(params:Object):void
@@ -78,9 +83,7 @@
 			}
 
 			protected function getPartyListResult_resultHandler(event:ResultEvent):void
-			{
-				// TODO Auto-generated method stub
-				
+			{				
 			}
 			
 			public function listPartyByUserID(owerid:String):void
@@ -92,7 +95,7 @@
 				filters = new ArrayCollection();
 				if(this.keywordTextInput.text.length > 0)
 				{
-					filters.addItem("owerid = '" + owerid + "'");
+					filters.addItem("owerid='" + owerid + "'");
 				}
 				orderBy = "adddate desc",
 				limit = -1;
@@ -102,12 +105,6 @@
 			
 			private function onSearch():void
 			{
-				loadPartyList(null);
-			}
-
-			protected function vbox1_showHandler(event:FlexEvent):void
-			{
-				// TODO Auto-generated method stub
 				loadPartyList(null);
 			}
 
@@ -126,11 +123,11 @@
 								 dataProvider="{getPartyListResult.lastResult}" itemClick="adg1_itemClickHandler(event)" 
 								 editable="false">
 				<mx:columns>
-					<mx:AdvancedDataGridColumn headerText="Title" dataField="title"/>
-					<mx:AdvancedDataGridColumn headerText="Owner" dataField="owneremail" >
+					<mx:AdvancedDataGridColumn headerText="名称" dataField="title"/>
+					<mx:AdvancedDataGridColumn headerText="发起人" dataField="owneremail" >
 					</mx:AdvancedDataGridColumn>
-					<mx:AdvancedDataGridColumn headerText="Maxnum" dataField="maxnum"/>
-					<mx:AdvancedDataGridColumn headerText="Minnum" dataField="minnum"/>
+					<mx:AdvancedDataGridColumn headerText="最少" dataField="minnum"/>
+					<mx:AdvancedDataGridColumn headerText="最多 " dataField="maxnum"/>
 					<!--
 					<mx:AdvancedDataGridColumn headerText="详细信息" dataField="content"/>
 					<mx:AdvancedDataGridColumn headerText="Ownerid" dataField="ownerid"/>
@@ -163,7 +160,7 @@
 				<s:Button label="Search" click="onSearch()"/>
 			</s:Group>
 		</mx:VBox>
-		<journey:PartyDetial id="detail" width="100%" height="100%" party="{(JyParty)(adg1.selectedItem)}" container="{viewStack1}">			
+		<journey:PartyDetial id="detail" width="100%" height="100%" container="{viewStack1}">			
 		</journey:PartyDetial>
 	</mx:ViewStack>
 </mx:VBox>

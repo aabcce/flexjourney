@@ -59,10 +59,10 @@
 		<s:CallResponder id="getAttendListResult" result="getAttendListResult_resultHandler(event)"/>		
 	</fx:Declarations>
 	<mx:Form id="attendForm">
-		<mx:FormItem label="Title">
+		<mx:FormItem label="标题">
 			<s:TextInput id="titleTextInput" text="@{jyAttend.title}"/>
 		</mx:FormItem>
-		<mx:FormItem label="Content">
+		<mx:FormItem label="备注">
 			<s:TextArea id="contentTextInput" text="@{jyAttend.content}">
 				
 			</s:TextArea>
@@ -75,16 +75,16 @@
 	<mx:Repeater id="myRepeater" dataProvider="{attendList}" width="100%">
 		
 			<mx:Form>
-				<mx:FormItem label="Title">
+				<mx:FormItem label="标题">
 					<mx:Text id="titleText" text="{myRepeater.currentItem.title}"/>
 				</mx:FormItem>
-				<mx:FormItem label="Useremail">
+				<mx:FormItem label="用户">
 					<mx:Text id="useremailText" text="{myRepeater.currentItem.useremail}"/>
 				</mx:FormItem>
-				<mx:FormItem label="Adddate">
+				<mx:FormItem label="日期">
 					<mx:Label id="adddateText" text="{myRepeater.currentItem.adddate}"/>					
 				</mx:FormItem>
-				<mx:FormItem label="Content">	
+				<mx:FormItem label="备注">	
 					<mx:Text id="contentText" text="{myRepeater.currentItem.content}"/>
 				</mx:FormItem>
 			</mx:Form>

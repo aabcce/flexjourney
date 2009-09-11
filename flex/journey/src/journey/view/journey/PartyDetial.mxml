@@ -6,12 +6,12 @@
 		<![CDATA[
 			import valueObjects.JyParty;
 			import mx.containers.ViewStack;
-			
+			import journey.model.ModelLocator;
+			[Bindable]
+			private var model:ModelLocator = ModelLocator.getInstance();
+
 			private var myContainer:ViewStack;
-			public function set party(party:valueObjects.JyParty):void
-			{
-				this.jyParty = party;
-			}
+			
 			public function set container(container:ViewStack):void
 			{
 				this.myContainer = container;
@@ -25,8 +25,7 @@
 
 		]]>
 	</fx:Script>
-	<fx:Declarations>
-		<valueObjects:JyParty id="jyParty"/>
+	<fx:Declarations>		
 	</fx:Declarations>
 	<s:VGroup horizontalAlign="right">
 		<s:Button label="返回列表" click="button1_clickHandler(event)">
@@ -35,29 +34,29 @@
 	</s:VGroup>
 	<mx:Form>
 		<mx:FormItem label="Title">
-			<mx:Text id="titleText" text="{jyParty.title}"/>
+			<mx:Text id="titleText" text="{model.currParty.title}"/>
 		</mx:FormItem>
 		<mx:FormItem label="OwnerEmail">
-			<mx:Text id="owneremailText" text="{jyParty.owneremail}"/>
+			<mx:Text id="owneremailText" text="{model.currParty.owneremail}"/>
 		</mx:FormItem>
 		<mx:FormItem label="Adddate">
-			<mx:Text id="adddateDateField" text="{jyParty.adddate}"/>
+			<mx:Text id="adddateDateField" text="{model.currParty.adddate}"/>
 		</mx:FormItem>
 		<mx:FormItem label="Minnum">
-			<mx:Text id="minnumText" text="{jyParty.minnum}"/>
+			<mx:Text id="minnumText" text="{model.currParty.minnum}"/>
 		</mx:FormItem>
 		<mx:FormItem label="Maxnum">
-			<mx:Text id="maxnumText" text="{jyParty.maxnum}"/>
+			<mx:Text id="maxnumText" text="{model.currParty.maxnum}"/>
 		</mx:FormItem>
 		<mx:FormItem label="Content">
-			<mx:Text id="contentText" text="{jyParty.content}"/>
+			<mx:Text id="contentText" text="{model.currParty.content}"/>
 		</mx:FormItem>
 		<!--
 		<mx:FormItem label="Ownerid">
-			<mx:Text id="owneridText" text="{jyParty.ownerid}"/>
+			<mx:Text id="owneridText" text="{model.currParty.ownerid}"/>
 		</mx:FormItem>
 		<mx:FormItem label="Partyid">
-			<mx:Text id="partyidText" text="{jyParty.partyid}"/>
+			<mx:Text id="partyidText" text="{model.currParty.partyid}"/>
 		</mx:FormItem>
 		-->
 	</mx:Form>

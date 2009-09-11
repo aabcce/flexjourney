@@ -25,13 +25,13 @@
 			
 			protected function onMessage(event:mx.messaging.events.MessageEvent):void
 			{
-				msgContent.text += model.currUser.email + "[" + new Date(event.message.timestamp).toLocaleTimeString() + "]: \n" + 
+				msgContent.text += model.currUser.email + " 在 [" + new Date(event.message.timestamp).toLocaleTimeString() + "] 说: \n" + 
 					event.message.body.toString() + "\n";
 			}
 			
 			protected function sendMessage():void{
 				var message:IMessage = new AsyncMessage();
-				message.body = msg.text.substr(200);
+				message.body = msg.text.substr(0,200);
 				producer.send(message);
 				msg.text = "";
 			}
@@ -67,17 +67,17 @@
 			{
 				if (consumer && consumer.subscribed)
 				{
-					msgContent.text += "Leaving room " + consumer.destination + "\r\n";	
+					msgContent.text += "离开 " + consumer.destination + "\r\n";	
 					consumer.unsubscribe();
 				}
 				
 				var partid:int = model.currParty.partyid;
-				var name:String = "partid" + partid.toString();
+				var name:String = "聚会" + partid.toString();
 				
 				consumer.destination = name;
 				producer.destination = name;
 				consumer.subscribe();
-				msgContent.text += "Entering room " + name + "\r\n";				
+				msgContent.text += "进入" + name + "\r\n";				
 			}
 			
 		]]>

@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="100%">
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="100%" xmlns:local="*" 
+		 xmlns:journey="journey.view.journey.*" 
+		 xmlns:jyphotoagent="services.jyphotoagent.*" creationComplete="creationCompleteHandler(event)" xmlns:shareboard="journey.view.journey.shareboard.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			
+			import journey.model.ModelLocator;
+			[Bindable]
+			private var model:ModelLocator = ModelLocator.getInstance();
+			
+			protected function creationCompleteHandler(event:Event):void
+			{
+				multiPhotoUpload.addPhotosResult.addEventListener(ResultEvent.RESULT,addPhotosResult_resultHandler); 
+			}
+
+			protected function photos_creationCompleteHandler(event:FlexEvent):void
+			{
+				getPhotoListResult.token = jyPhotoAgent.getPhotoList(model.currParty.partyid.toString());
+			}
+			
+			protected function addPhotosResult_resultHandler(event:ResultEvent):void
+			{
+				if(event.result)
+					getPhotoListResult.token = jyPhotoAgent.getPhotoList(model.currParty.partyid.toString());
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="getPhotoListResult"/>
+		<jyphotoagent:JyPhotoAgent id="jyPhotoAgent" fault="Alert.show(event.fault.faultString)"/>
+	</fx:Declarations>
+	
 	<mx:Label text="图片分享">
 		
 	</mx:Label>
-	<mx:TileList id="photos">
-		
-	</mx:TileList>
-	<mx:Label text="文章列表">
+	<mx:DividedBox direction="horizontal" width="100%">
+		<mx:TileList id="photos" width="60%" creationComplete="photos_creationCompleteHandler(event)" dataProvider="{getPhotoListResult.lastResult}" labelField="title">
+			
+		</mx:TileList>
+		<shareboard:MultiPhotoUpload id="multiPhotoUpload" width="40%">
+			
+		</shareboard:MultiPhotoUpload>
+	</mx:DividedBox>
+	<mx:Label text="日志列表">
 		
 	</mx:Label>
-	<mx:TileList id="articles">
+	<shareboard:ArticleBoard>
 		
-	</mx:TileList>
+	</shareboard:ArticleBoard>
 	
 </mx:VBox>
