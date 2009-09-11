@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="100%" creationComplete="creationCompleteHandler(event)" >
+	<fx:Script>
+		<![CDATA[
+			import mx.utils.StringUtil;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+						
+			import journey.model.ModelLocator;
+			[Bindable]
+			private var model:ModelLocator = ModelLocator.getInstance();
+			[Bindable]
+			private var info:UploadFileInfo = null;
+						
+			protected function creationCompleteHandler(event:Event):void
+			{
+				if(info.status == -1)
+				{
+					//start upload
+					upload();
+				}
+			}
+			
+			[Bindable]
+			override public function get data():Object
+			{
+				return(super.data);
+			}
+			
+			override public function set data(value:Object):void
+			{
+				info = UploadFileInfo(value);
+				super.data = value;
+			}
+
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				var uploadList:ArrayCollection = MultiPhotoUpload(this.parent.parent.parent).uploadList;
+				for(var i:int=0;i<uploadList.length;i++)
+				{
+					if(uploadList.getItemAt(i) == info)
+					{
+						uploadList.removeItemAt(i);
+//						uploadList.refresh();
+						break;
+					}
+				}				
+			}
+			
+			protected function upload():void{
+
+				//add listener
+				if(info.status != -1)
+				{
+					return;
+				}
+				
+				var ref:FileReference = info.ref;
+				
+				var url:String = info.url;
+				var request:URLRequest = new URLRequest(url);
+				request.method = URLRequestMethod.POST;
+				
+				var variables:URLVariables = new URLVariables();
+				variables.partyid = model.currParty.partyid; 
+				variables.title = info.title; 
+				variables.describe = info.comment;
+				request.data = variables;
+				
+				info.status = 0;
+				
+				ref.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+				ref.addEventListener(IOErrorEvent.IO_ERROR, uploadIoErrorHandler);
+				ref.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, uploadCompleteHandler);
+				
+				progressBar.visible = true;
+				ref.upload(request);
+			}
+			
+			/**
+			 * Event handler for when the upload starts.
+			 * 
+			 * @param event ProgressEvent object contains details of the event triggering this handler.
+			 */ 
+			private function progressHandler(event:ProgressEvent):void {
+				progressBar.setProgress(event.bytesLoaded, event.bytesTotal);							
+			}
+			
+			/**
+			 * Event handler for the file upload IO error.
+			 * 
+			 * @param event IOErrorEvent object contains details of the event triggering this handler.
+			 */  
+			private function uploadIoErrorHandler(event:IOErrorEvent):void {
+				progressBar.label = "Encountered error.";
+				cancelbtn.enabled = false;
+				info.status = -1;
+				Alert.show("IO Error: " + event.toString());
+			}
+			
+			/**
+			 * Event handler for when the upload operation has completed.
+			 * Specifically manages response data.
+			 * 
+			 * @param event DataEvent object contains details of the event triggering this handler.
+			 */ 		
+			private function uploadCompleteHandler(event:DataEvent):void {
+				try {
+					info.status = event.data?1:-1;
+					info.remoteurl = mx.utils.StringUtil.trim(event.data);
+				}
+				catch (error:Error) {
+					progressBar.label = "Exception occurred.";
+					cancelbtn.enabled = false;
+					info.status = -1;
+					Alert.show("Exception details: " + error.message,"Exception occured.");
+				}
+			}
+
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	<mx:Form>
+		<mx:FormItem label="名称">
+			<mx:TextInput id="textInput" textAlign="left" text="@{info.title}">
+				
+			</mx:TextInput>
+		</mx:FormItem>
+		<mx:FormItem label="备注">
+			<mx:TextArea id="textArea" textAlign="left" text="@{info.comment}">
+				
+			</mx:TextArea>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ViewStack id="currState" selectedIndex="{(info.status==-1)?1:0}">
+		<mx:VBox>
+			<mx:Button id="deletebtn" label="删除" click="button1_clickHandler(event)">
+				
+			</mx:Button>
+		</mx:VBox>
+		<mx:VBox>
+			<mx:ProgressBar id="progressBar" width="100%">
+				
+			</mx:ProgressBar>
+
+			<s:Button id="cancelbtn" label="取消" click="button2_clickHandler(event)">
+				
+			</s:Button>
+
+		</mx:VBox>
+	</mx:ViewStack>
+	
+</mx:VBox>

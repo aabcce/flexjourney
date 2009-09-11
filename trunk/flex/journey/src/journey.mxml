@@ -41,15 +41,13 @@
 			}
 			
 			protected function application1_creationCompleteHandler(event:FlexEvent):void
-			{
-				// TODO Auto-generated method stub				
+			{			
 				model.Stage = this;
 				isLoginResult.token = jyUserAgent.isLogin();
 			}
 			
 			protected function isLoginResult_resultHandler(event:ResultEvent):void
 			{
-				// TODO Auto-generated method stub
 				if(event.result)
 				{
 					getCurrUserResult.token = jyUserAgent.getCurrUser();
@@ -62,7 +60,6 @@
 
 			protected function getCurrUserResult_resultHandler(event:ResultEvent):void
 			{
-				// TODO Auto-generated method stub
 				model.currUser = (JyUser)(event.result);
 			}
 
@@ -93,22 +90,22 @@
 		<s:CallResponder id="getCurrUserResult" result="getCurrUserResult_resultHandler(event)"/>
 	</fx:Declarations>
 	
-	<viewuser:LoginForm includeIn="loginState">		
+	<viewuser:LoginForm includeIn="loginState" width="100%" height="100%">		
 	</viewuser:LoginForm>
 	
-	<viewuser:RegisterForm includeIn="registerState">		
+	<viewuser:RegisterForm includeIn="registerState" width="100%" height="100%">		
 	</viewuser:RegisterForm>	
 	
-	<viewuser:LostPasswordForm includeIn="lostpasswordState">		
+	<viewuser:LostPasswordForm includeIn="lostpasswordState" width="100%" height="100%">		
 	</viewuser:LostPasswordForm>	
 	
-	<viewuser:LogoutForm includeIn="logoutState">		
+	<viewuser:LogoutForm includeIn="logoutState" width="100%" height="100%">		
 	</viewuser:LogoutForm>
 		
-	<viewcommon:ErrorView includeIn="errorState">		
+	<viewcommon:ErrorView includeIn="errorState" width="100%" height="100%">		
 	</viewcommon:ErrorView>
 	
-	<view:MainWindow includeIn="defaultState">
+	<view:MainWindow includeIn="defaultState" width="100%" height="100%">
 		
 	</view:MainWindow>
 

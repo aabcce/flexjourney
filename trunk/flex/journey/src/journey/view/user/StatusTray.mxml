@@ -39,7 +39,6 @@
 
 			protected function jyUserAgent_resultHandler(event:ResultEvent):void
 			{
-				// TODO Auto-generated method stub
 				model.currUser = null;
 				model.Stage.SwitchState(StatesOption.LOGOUT);
 			}
