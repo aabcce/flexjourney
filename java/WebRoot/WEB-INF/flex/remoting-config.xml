@@ -27,4 +27,14 @@
             <source>journey.agents.JyMessageAgent</source>
         </properties>
     </destination>
+    <destination id="JyArticleAgent">
+        <properties>
+            <source>journey.agents.JyArticleAgent</source>
+        </properties>
+    </destination>
+    <destination id="JyPhotoAgent">
+        <properties>
+            <source>journey.agents.JyPhotoAgent</source>
+        </properties>
+    </destination>
 </service>

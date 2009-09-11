@@ -1,11 +1,17 @@
 package journey.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * JyParty entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "jy_party", catalog = "journey")
 public class JyParty implements java.io.Serializable {
 
 	// Fields
@@ -17,7 +23,7 @@ public class JyParty implements java.io.Serializable {
 	private Integer maxnum;
 	private String title;
 	private String content;
-	private Date adddate;
+	private Timestamp adddate;
 
 	// Constructors
 
@@ -27,7 +33,7 @@ public class JyParty implements java.io.Serializable {
 
 	/** full constructor */
 	public JyParty(Integer ownerid, String owneremail, Integer minnum,
-			Integer maxnum, String title, String content, Date adddate) {
+			Integer maxnum, String title, String content, Timestamp adddate) {
 		this.ownerid = ownerid;
 		this.owneremail = owneremail;
 		this.minnum = minnum;
@@ -38,7 +44,9 @@ public class JyParty implements java.io.Serializable {
 	}
 
 	// Property accessors
-
+	@Id
+	@GeneratedValue
+	@Column(name = "PARTYID", unique = true, nullable = false)
 	public Integer getPartyid() {
 		return this.partyid;
 	}
@@ -47,6 +55,7 @@ public class JyParty implements java.io.Serializable {
 		this.partyid = partyid;
 	}
 
+	@Column(name = "OWNERID")
 	public Integer getOwnerid() {
 		return this.ownerid;
 	}
@@ -55,6 +64,7 @@ public class JyParty implements java.io.Serializable {
 		this.ownerid = ownerid;
 	}
 
+	@Column(name = "OWNEREMAIL", length = 50)
 	public String getOwneremail() {
 		return this.owneremail;
 	}
@@ -63,6 +73,7 @@ public class JyParty implements java.io.Serializable {
 		this.owneremail = owneremail;
 	}
 
+	@Column(name = "MINNUM")
 	public Integer getMinnum() {
 		return this.minnum;
 	}
@@ -71,6 +82,7 @@ public class JyParty implements java.io.Serializable {
 		this.minnum = minnum;
 	}
 
+	@Column(name = "MAXNUM")
 	public Integer getMaxnum() {
 		return this.maxnum;
 	}
@@ -79,6 +91,7 @@ public class JyParty implements java.io.Serializable {
 		this.maxnum = maxnum;
 	}
 
+	@Column(name = "TITLE", length = 200)
 	public String getTitle() {
 		return this.title;
 	}
@@ -87,6 +100,7 @@ public class JyParty implements java.io.Serializable {
 		this.title = title;
 	}
 
+	@Column(name = "CONTENT", length = 65535)
 	public String getContent() {
 		return this.content;
 	}
@@ -95,11 +109,12 @@ public class JyParty implements java.io.Serializable {
 		this.content = content;
 	}
 
-	public Date getAdddate() {
+	@Column(name = "ADDDATE", length = 19)
+	public Timestamp getAdddate() {
 		return this.adddate;
 	}
 
-	public void setAdddate(Date adddate) {
+	public void setAdddate(Timestamp adddate) {
 		this.adddate = adddate;
 	}
 

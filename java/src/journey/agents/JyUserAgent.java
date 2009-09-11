@@ -28,6 +28,7 @@ public class JyUserAgent {
 
         tx.commit();
         session.close();
+        
 		return true;
 	}
 	
@@ -106,7 +107,6 @@ public class JyUserAgent {
 		{
 			return(null);
 		}
-        session.close();
 		
 		return((JyUser)result.get(0));
 	}
@@ -122,7 +122,6 @@ public class JyUserAgent {
 		{
 			return(null);
 		}
-        session.close();
 		
 		return((JyUser)result.get(0));
 	}
