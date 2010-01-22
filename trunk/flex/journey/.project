@@ -19,7 +19,7 @@
 		<link>
 			<name>bin-debug</name>
 			<type>2</type>
-			<location>D:/depot/lcds/tomcat/webapps/journey/flex</location>
+			<location>D:/depot/blazeds/tomcat/webapps/journey/flex</location>
 		</link>
 	</linkedResources>
 </projectDescription>
