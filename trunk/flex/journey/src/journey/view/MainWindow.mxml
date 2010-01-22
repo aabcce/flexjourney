@@ -2,7 +2,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="100%" 
 		 xmlns:view="journey.view.*" xmlns:user="journey.view.user.*" 
-		 xmlns:journey="journey.view.journey.*" enterState="group1_enterStateHandler(event)">
+		 xmlns:journey="journey.view.journey.*" xmlns:mx1="library://ns.adobe.com/flex/mx">
 	<s:layout>
  		<s:BasicLayout/>
  	</s:layout>
@@ -13,14 +13,6 @@
 			
 			[Bindable]
 			private var model:ModelLocator = ModelLocator.getInstance();
-
-			protected function group1_enterStateHandler(event:FlexEvent):void
-			{
-				// TODO Auto-generated method stub
-				tab1.selectedIndex = 0;
-				dashBoard1.loadPartyList(null);
-			}
-
 		]]>
 	</fx:Script>
 	<s:Group>
@@ -29,32 +21,32 @@
 				
 			</s:HorizontalLayout>
 		</s:layout>
-		<mx:Image source="@Embed(source='../../assets/logo.gif')" width="160" height="120">
+		<mx1:Image source="@Embed(source='../../assets/logo.gif')" width="160" height="120">
 			
-		</mx:Image>
+		</mx1:Image>
 		<user:StatusTray>
 			
 		</user:StatusTray>
 	</s:Group>
-	<mx:TabNavigator id="tab1" width="100%" height="100%" top="120">
+	<mx1:TabNavigator id="tab1" width="100%" height="100%" top="120" >
 		<journey:DashBoard id="dashBoard1" label="@Resource(key='Journey.TabNavigator.DashBoard',bundle='view')">
 			
 		</journey:DashBoard>
-		<mx:Canvas label="@Resource(key='Journey.TabNavigator.AttendBoard',bundle='view')" 
+		<mx1:Canvas label="@Resource(key='Journey.TabNavigator.AttendBoard',bundle='view')" 
 				   width="100%" height="100%" enabled="{model.currParty != null}">
 			<journey:AttendBoard width="90%" height="90%">
 				
 			</journey:AttendBoard>
-		</mx:Canvas>
+		</mx1:Canvas>
 
 		<journey:ChatBoard label="@Resource(key='Journey.TabNavigator.ChatBoard',bundle='view')" enabled="{model.currParty != null}">
 			
 		</journey:ChatBoard>
-		<mx:Canvas label="@Resource(key='Journey.TabNavigator.ShareBoard',bundle='view')" 
+		<mx1:Canvas label="@Resource(key='Journey.TabNavigator.ShareBoard',bundle='view')" 
 				   width="100%" height="100%" enabled="{model.currParty != null}">
 			<journey:ShareBoard width="90%" height="90%">
 				
 			</journey:ShareBoard>
-		</mx:Canvas>
-	</mx:TabNavigator>
+		</mx1:Canvas>
+	</mx1:TabNavigator>
 </s:Group>

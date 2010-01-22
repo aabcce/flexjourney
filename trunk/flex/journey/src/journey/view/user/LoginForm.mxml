@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:jyuseragent="services.jyuseragent.*">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:jyuseragent="services.jyuseragent.*" xmlns:services="services.*">
 <mx:Script>
 	<![CDATA[
 		import mx.rpc.events.ResultEvent;
@@ -101,5 +101,5 @@
 	</mx:StringValidator>
 
 	<mx:CallResponder id="loginResult"/>
-	<jyuseragent:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)" result="jyUserAgent_resultHandler(event)"/>
+	<services:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)" result="jyUserAgent_resultHandler(event)"/>
 </mx:Canvas>
