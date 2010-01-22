@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="100%" 
+		 width="100%" height="100%" 
 		 creationComplete="group1_creationCompleteHandler(event)" 
-		 show="group1_showHandler(event)" xmlns:jyattendagent="services.jyattendagent.*" 
-		 xmlns:jymessageagent="services.jymessageagent.*">
+		 show="group1_showHandler(event)"
+		 xmlns:services="services.*" xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 >
 	<fx:Script>
 		<![CDATA[
+			import mx.events.IndexChangedEvent;
+			import mx.events.StateChangeEvent;
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 			import mx.messaging.events.MessageEvent;
@@ -23,6 +26,11 @@
 			[Bindable]
 			private var model:ModelLocator = ModelLocator.getInstance();
 			
+			protected function creationCompleteHandler(event:Event):void
+			{
+				
+			}
+			
 			protected function onMessage(event:mx.messaging.events.MessageEvent):void
 			{
 				msgContent.text += model.currUser.email + " 在 [" + new Date(event.message.timestamp).toLocaleTimeString() + "] 说: \n" + 
@@ -38,8 +46,10 @@
 
 			protected function group1_creationCompleteHandler(event:FlexEvent):void
 			{
-				// TODO Auto-generated method stub
-				
+				startConnect();
+			}
+			protected function startConnect():void
+			{
 				var myRTMP:RTMPChannel = new RTMPChannel("my-rtmp", "rtmp://{server.name}:2039");
 				var myStreamingAMF:AMFChannel = new StreamingAMFChannel("my-streaming-amf", "../messagebroker/streamingamf");
 				var myPollingAMF:AMFChannel = new AMFChannel("my-polling-amf", "../messagebroker/amfpolling");
@@ -52,13 +62,27 @@
 				consumer.channelSet = channelSet;
 				producer.channelSet = channelSet;
 			}
+			protected function closeConnect():void
+			{
+				if(producer.connected)
+				{
+					producer.disconnect();
+				}
+				
+				if(consumer.subscribed)
+				{
+					consumer.logout();
+				}
+				if(consumer.connected)
+				{
+					consumer.disconnect();
+				}
+			}
 		
 			protected function group1_showHandler(event:FlexEvent):void
 			{
 				// TODO Auto-generated method stub
 				var partid:int = model.currParty.partyid;
-								
-				isCurrUserAttended.token = jyAttendAgent.isCurrUserAttended(partid.toString());
 								
 				startMessageResult.token = jyMessageAgent.startMessage("partid" + partid.toString());
 			}
@@ -74,12 +98,24 @@
 				var partid:int = model.currParty.partyid;
 				var name:String = "聚会" + partid.toString();
 				
-				consumer.destination = name;
-				producer.destination = name;
+				consumer.destination = "partid" + partid.toString();
+				producer.destination = "partid" + partid.toString();
 				consumer.subscribe();
 				msgContent.text += "进入" + name + "\r\n";				
 			}
 			
+
+			protected function msg_keyUpHandler(event:KeyboardEvent):void
+			{
+				if(event.keyCode==13)
+				{
+					if(!event.shiftKey)
+						this.sendMessage();					
+					else
+						msg.text += "\r\n";
+				}
+			}
+
 		]]>
 	</fx:Script>
 	
@@ -88,10 +124,7 @@
 		</s:Producer>
 		<s:Consumer id="consumer" message="onMessage(event)">			
 		</s:Consumer>		
-		<fx:Boolean id="attended" />
-		<jyattendagent:JyAttendAgent id="jyAttendAgent" fault="Alert.show(event.fault.faultString)"/>		
-		<s:CallResponder id="isCurrUserAttended" result="attended=isCurrUserAttended.lastResult"/>
-		<jymessageagent:JyMessageAgent id="jyMessageAgent" fault="Alert.show(event.fault.faultString)"/>
+		<services:JyMessageAgent id="jyMessageAgent" fault="Alert.show(event.fault.faultString)"/>
 		<s:CallResponder id="startMessageResult" result="startMessageResult_resultHandler(event)"/>
 	</fx:Declarations>
 	
@@ -102,16 +135,18 @@
 	</mx:DividedBox>
 
 	<mx:ControlBar width="100%" height="80">
-		<mx:ViewStack selectedIndex="{attended?1:0}" width="100%" height="80">
+		<mx:ViewStack id="sendBox" selectedIndex="{model.attended?1:0}">
 			<mx:HBox width="100%">
-				<mx:Text text="参与后方能发言哟！" visible="{!attended}" />
+				<mx:Text text="参与后方能发言哟！" />
 			</mx:HBox>
-			<mx:HBox width="100%">			
-				<mx:TextArea id="msg" height="32" width="80%">					
+			<mx:HBox width="100%" >
+				<mx:TextArea id="msg" height="32" width="380" keyUp="msg_keyUpHandler(event)">					
 				</mx:TextArea>
 				<s:Button label="发送" click="sendMessage()" enabled="{msg.text.length > 0}"  id="button"/>
+				<mx:Label text="(直接按回车发送)">
+					
+				</mx:Label>
 			</mx:HBox>
-		</mx:ViewStack>
-		
+		</mx:ViewStack>	
 	</mx:ControlBar>
 </mx:VBox>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo"  width="383" height="390" title="发起聚会" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"  width="383" height="390" title="发起聚会" 
 		 close="titlewindow1_closeHandler(event)"  xmlns:valueObjects="valueObjects.*"
-		 xmlns:jypartyagent="services.jypartyagent.*" showCloseButton="true">
+		 xmlns:services="services.*" showCloseButton="true">
 	<fx:Script>
 		<![CDATA[
 			import mx.rpc.events.ResultEvent;
@@ -59,7 +59,7 @@
 		<valueObjects:JyParty id="jyParty" title="{titleTextInput.text}" minnum="{minnumTextInput.value}" 
 							  maxnum="{maxnumTextInput.value}" content="{contentRichEditableText.text}" ownerid="0" partyid="0"/>
 		<s:CallResponder id="addPartyResult" result="addPartyResult_resultHandler(event)"/>
-		<jypartyagent:JyPartyAgent id="jyPartyAgent" fault="Alert.show(event.fault.faultString)"/>
+		<services:JyPartyAgent id="jyPartyAgent" fault="Alert.show(event.fault.faultString)"/>
 		
 	</fx:Declarations>
 	

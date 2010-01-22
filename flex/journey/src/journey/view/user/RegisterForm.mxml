@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:valueObjects="valueObjects.*" xmlns:jyuseragent="services.jyuseragent.*">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:valueObjects="valueObjects.*" xmlns:jyuseragent="services.jyuseragent.*" xmlns:services="services.*">
 <mx:Script>
 	<![CDATA[
 		import mx.rpc.events.ResultEvent;
@@ -156,7 +156,7 @@
 	</mx:EmailValidator>
 
 	<valueObjects:JyUser id="jyUser" password="{pwd.text}" userid="0" email="{email.text}"/>
-	<jyuseragent:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)"/>
+	<services:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)"/>
 	<mx:CallResponder id="registerResult" result="registerResult_resultHandler(event)" />
 		
 </mx:Canvas>

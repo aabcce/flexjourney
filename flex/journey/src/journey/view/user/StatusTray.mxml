@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
 		 width="100%" height="120" creationComplete="group1_creationCompleteHandler(event)"
-		  addedToStage="group1_addedToStageHandler(event)" xmlns:jyuseragent="services.jyuseragent.*">
+		  addedToStage="group1_addedToStageHandler(event)" xmlns:services="services.*">
 	<s:layout>
  		<s:HorizontalLayout/>
  	</s:layout>
@@ -47,7 +47,7 @@
 	</fx:Script>
 	<fx:Declarations>
 		<s:CallResponder id="logoutResult"/>
-		<jyuseragent:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)" result="jyUserAgent_resultHandler(event)"/>
+		<services:JyUserAgent id="jyUserAgent" fault="Alert.show(event.fault.faultString)" result="jyUserAgent_resultHandler(event)"/>
 	</fx:Declarations>
 	<mx:Label text="{model.currUser.email}">
 		
