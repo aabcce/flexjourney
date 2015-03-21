@@ -1,0 +1,1 @@
+Provide a simple Flex APP, to help people organizing parties,sharing their happy :)
